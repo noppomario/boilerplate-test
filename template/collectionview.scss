@@ -1,0 +1,4 @@
+<% low = names.replace(/^./,function(e){ return e.toLowerCase(); }) %>
+.<%= low %>Container {
+  border: 1px solid black;
+}
