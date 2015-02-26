@@ -1,51 +1,50 @@
 "use strict";
-var koa = require('koa');
-var router = require('koa-router');
-var serve = require('koa-static');
+//var koa = require('koa');
+//var router = require('koa-router');
+//var serve = require('koa-static');
 //var mount = require('koa-mount');
-var app = koa();
+//var app = koa();
 
-app.use(router(app));
+var express    = require('express');
+var bodyParser = require('body-parser');
+var app        = express();
 
-//var router = new Router();
+//app.use(router(app));
 
-app.get('/users', function *(next){
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.get('/animals', function (req, res){
   console.log('HOAAAAAAAAAA');
-  console.log(this.request.header.accept);
-  this.set('Content-Type', 'application/json');
-  this.body = JSON.stringify({
+  res.set({'Content-Type': 'application/json'});
+  res.send( JSON.stringify({
     "total": 3,
     "list": [
-      {userId: 1, name:'Mike'},
-      {userId: 5, name:'Mary'},
-      {userId: 7, name:'Ken'},
-    ]});  
+      {animalId: 1, name:'Gorilla'},
+      {animalId: 5, name:'Dog'},
+      {animalId: 7, name:'Cat'},
+    ]}) );  
 });
 
+app.put('/animals/:id', function (req, res){
+  console.log('PUT');
+  res.set({'Content-Type': 'application/json'});
+  console.log(req.body);
+  res.send(req.body);
+});
 
-/*
-app.use(route.get('/users', function *(next) {
-  console.log(this.request.is('json'));
-  this.set('Content-Type', 'application/json');
-  this.body = JSON.stringify({
-    "total": 3,
-    "list": [
-      {userId: 1, name:'Mike'},
-      {userId: 5, name:'Mary'},
-      {userId: 7, name:'Ken'},
-    ]});
+app.post('/animals', function (req, res){
+  console.log('POST');
+  res.set({'Content-Type': 'application/json'});
+  console.log(req.body);
+  res.send(req.body);
+});
 
-}));
+//app.use(router.routes())
+//   .use(router.allowedMethods());
 
-app.use(route.post('/users', function *(next){
-//  console.log(this.req);
-//  console.log(this.res);
-  
-}));
-*/
-
-console.log(__dirname);
-app.use(serve(__dirname + '/../app'));
+//console.log(__dirname);
+//app.use(serve(__dirname + '/../app'));
+app.use(express.static(__dirname + '/../app'));
 
 app.listen(4649);
 
