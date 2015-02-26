@@ -29,6 +29,7 @@ class <%= names %>View extends Marionette.CollectionView<<%= name %>> {
     this.triggers = {
     };
     this.collectionEvents = {
+      //'sync': 'render',
     };
     this.modelEvents = {
     };
