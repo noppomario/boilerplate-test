@@ -9,7 +9,6 @@ import <%= name %> = <%= name %>Model.<%= name %>;
 
 class <%= names %> extends Backbone.Collection<<%= name %>> {
   model: typeof <%= name %>;
-  idAttribute: string;
   constructor ( models?:<%= name %>[], options?:any){
     this.model = <%= name %>;
     this.url   = '/<%= low %>';
