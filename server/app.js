@@ -4,6 +4,7 @@ var express    = require('express');
 var bodyParser = require('body-parser');
 var app        = express();
 var __         = require('underscore');
+var path       = require('path');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -19,11 +20,18 @@ var users = [
 router.route('/users')
   .get(function (req, res){
     console.log('GET');
-    res.set({'Content-Type': 'application/json'});
-    res.json({
-      "total": users.length,
-      "list" : users,
-    });
+    if(req.xhr){
+      res.set({'Content-Type': 'application/json'});
+      res.json({
+        "total": users.length,
+        "list" : users,
+      });
+    } else {
+      console.log(__dirname + '/../app/index.html');
+      res.sendFile('index.html', {
+        root: path.join(__dirname, '../app'),
+      });
+    }
   })
   .post(function (req, res){
     console.log('POST');
