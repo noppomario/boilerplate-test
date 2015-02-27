@@ -3,23 +3,27 @@
 var express    = require('express');
 var bodyParser = require('body-parser');
 var app        = express();
+var __         = require('underscore');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 var router = express.Router();
 
+var users = [
+  {userId: '1', name:'Mike'},
+  {userId: '5', name:'Mary'},
+  {userId: '7', name:'Bob'},
+];
+
 router.route('/users')
   .get(function (req, res){
     console.log('GET');
     res.set({'Content-Type': 'application/json'});
     res.json({
-      "total": 3,
-      "list": [
-        {userId: 1, name:'Mike'},
-        {userId: 5, name:'Mary'},
-        {userId: 7, name:'Bob'},
-      ]} );  
+      "total": users.length,
+      "list" : users,
+    });
   })
   .post(function (req, res){
     console.log('POST');
@@ -33,13 +37,26 @@ router.route('/users/:id')
     console.log('GET');
     res.set({'Content-Type': 'application/json'});
     console.log(req.body);
-    res.json({name:'Hoge'});
+    console.log(req.params.id);
+    var model = __.find(users,function(user){
+      return user.userId === req.params.id;
+    });
+    if( model != undefined ) {
+      res.json(model);
+    }
   })
   .put(function (req, res){
     console.log('PUT');
-    console.log(req.body);
     res.set({'Content-Type': 'application/json'});
-    res.send(req.body.name);
+    console.log(req.body);
+    console.log(req.params.id);
+    var model = __.find(users,function(user){
+      return user.userId === req.params.id;
+    });
+    if( model != undefined ) {
+      model.name = req.body.name;
+      res.send(req.body.name);
+    }
   });
 
 
