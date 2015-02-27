@@ -13,8 +13,9 @@ module <%= name %>Model {
 
   export class <%= name %> extends Backbone.Model implements <%= name %>Attributes {
     constructor(attributes?:<%= name %>Attributes, options?:any) {
+      //this.idAttribute = 'id';
       this.defaults = <any>{
-        name: 'Mike',
+        name: 'unknown',
       };
       super(attributes,options);
     }

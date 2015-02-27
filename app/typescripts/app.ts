@@ -11,10 +11,10 @@ Backbone.$ = $;
 import Marionette = require('backbone.marionette');
 import u = require('underscore');
 
-// import HogeModel = require('./models/Hoge');
-// import Hoge      = HogeModel.Hoge;
+// import SomeModel = require('./models/Some');
+// import Some      = SomeModel.Some;
 
-// import HogeView  = require('./itemviews/HogeView');
+// import SomeView  = require('./itemviews/SomeView');
 
 class MyApplication extends Marionette.Application {
   initialize(options?: any) {
@@ -29,6 +29,9 @@ class MyApplication extends Marionette.Application {
     this.mainRegion = new Marionette.Region({ el: '#main' });
     this.layoutView.addRegion('main', this.mainRegion);
     this.layoutView.render();
+
+
+    //this.mainRegion.show(someview);
   }
 }
 
@@ -68,12 +71,12 @@ var router     = new MainRouter({
   routes: {},
   controller: controller
 });
+
 controller.router = router;
 Backbone.history.start({pushState:true});
 
 var app: MyApplication = new MyApplication();
 app.start();
 
-//app.mainRegion.show(view);
 
 

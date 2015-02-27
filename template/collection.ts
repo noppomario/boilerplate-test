@@ -13,7 +13,6 @@ class <%= names %> extends Backbone.Collection<<%= name %>> {
   constructor ( models?:<%= name %>[], options?:any){
     this.model = <%= name %>;
     this.url   = '/<%= low %>';
-    //this.idAttribute = 'id';
     super(models, options);
   }
   /*

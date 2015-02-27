@@ -32,7 +32,7 @@ class <%= names %>View extends Marionette.CompositeView<<%= name %>> {
     this.triggers = {
     };
     this.collectionEvents = {
-      //'sync': 'render',
+      'sync': 'render',
     };
     this.modelEvents = {
     };
