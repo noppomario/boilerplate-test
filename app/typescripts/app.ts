@@ -39,34 +39,6 @@ export class Application extends Marionette.Application {
   }
 }
 
-class MainRouter extends Marionette.AppRouter {
-  constructor(options?: Marionette.AppRouterOptions){
-    super(options);
-  }
-}
-
-class MainController extends Marionette.Object {
-  router: MainRouter;
-
-  constructor(){
-    super();
-  }
-  hello(){
-    console.log('hello');
-  }
-}
-
-var controller = new MainController();
-var mainRouter = new MainRouter({
-  appRoutes: {
-    'users': 'hello',
-  },
-  routes: {},
-  controller: controller
-});
-
-controller.router = mainRouter;
-
 (function(){
   var app: Application = new Application();
   app.start();
