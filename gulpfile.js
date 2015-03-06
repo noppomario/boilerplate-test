@@ -248,7 +248,7 @@ var templateRules = {
                      },
   'collection'    : {rule:     'plural'       , path: 'collections',
                      template: 'collection', prefix: '',
-                     router: true },
+                     router: true, server: true },
   'itemView'      : {rule:     'singular'     , path: 'itemviews',
                      template: 'itemview'  , prefix: 'View',
                      html: true,  css: true  },
@@ -288,6 +288,8 @@ function makeTemplate(type,_name,errEnd){
   var csspath  = [cssdir, '/_', outname, '.scss' ].join('');
   var routerdir  = 'app/typescripts/routers';
   var routerpath = [routerdir, '/', outname, 'Router.ts'].join('');
+  var serverdir  = 'server';
+  var serverpath = [serverdir, '/', outname, '.js'].join('');
 
   fs.exists(tspath, function(exists){
     if(exists && errEnd){
@@ -349,6 +351,22 @@ function makeTemplate(type,_name,errEnd){
           }))
           .pipe(gulp.dest(routerdir));
         console.log('create ' + routerpath);
+      }
+    });
+  }
+  if( type.server ){
+    fs.exists(serverpath, function(exists){
+      if(exists){
+        console.log(outname+'.js already exists.');
+      } else {
+        gulp.src('template/serverRouter.js')
+          .pipe(template({name: name,names: names}))
+          .pipe(rename({
+            basename: outname,
+            extname:  '.js'
+          }))
+          .pipe(gulp.dest(serverdir));
+        console.log('create ' + serverpath);
       }
     });
   }
