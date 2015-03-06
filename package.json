@@ -23,6 +23,8 @@
     "collectionview": "gulp templateCollectionView --env",
     "cv": "gulp templateCompositeView --env",
     "compositeview": "gulp templateCompositeView --env",
+    "l": "gulp templateLayoutView --env",
+    "layout": "gulp templateLayoutView --env",
     "doc": "gulp typedoc",
     "showdoc": "chromium-browser docs/index.html",
     "server": "node server/app.js &",

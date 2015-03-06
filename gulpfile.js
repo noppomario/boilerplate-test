@@ -132,6 +132,7 @@ gulp.task('compile-test-local', function(){
     '!app/typescripts/itemviews/**/*.ts',
     '!app/typescripts/collectionviews/**/*.ts',
     '!app/typescripts/compositeviews/**/*.ts',
+    '!app/typescripts/layoutviews/**/*.ts',
     '!app/typescripts/tests/index.ts',
   ]);
 });
@@ -205,18 +206,25 @@ var templateOptions = {
 
 var templateRules = {
   'model'         : {rule:     'singular'     , path: 'models',
-                     template: 'model'     , prefix: ''        ,html: false },
+                     template: 'model'     , prefix: '',
+                     html: false, css: false },
   'collection'    : {rule:     'plural'       , path: 'collections',
-                     template: 'collection', prefix: ''        ,html: false },
+                     template: 'collection', prefix: '',
+                     html: false, css: false },
   'itemView'      : {rule:     'singular'     , path: 'itemviews',
-                     template: 'itemview'  , prefix: 'View'    ,html: true  },
+                     template: 'itemview'  , prefix: 'View',
+                     html: true,  css: true  },
   'collectionView': {rule:     'plural'       , path: 'collectionviews',
-                     template: 'collectionview', prefix: 'View',html: true  },
+                     template: 'collectionview', prefix: 'View',
+                     html: false, css: false },
   'compositeView' : {rule:     'plural'       , path: 'compositeviews',
-                     template: 'compositeview', prefix: 'View' ,html: true  },
+                     template: 'compositeview', prefix: 'View',
+                     html: true,  css: true  },
+  'layoutView'    : {rule:     'origin'       , path: 'layoutviews',
+                     template: 'layoutview'   , prefix: 'LayoutView',
+                     html: true,  css: false },
 };
 var tr = templateRules;
-
 
 function makeTemplate(type,_name,errEnd){
   var outname;
@@ -227,6 +235,10 @@ function makeTemplate(type,_name,errEnd){
     outname = name  + type.prefix;
   } else if ( type.rule === 'plural' ){
     outname = names + type.prefix;
+  } else if ( type.rule === 'origin' ){
+    name    = __name;
+    names   = __name;
+    outname = __name + type.prefix;
   }
   var tsdir = 'app/typescripts/' + type.path;
   var tspath   = [tsdir, '/', outname, '.ts'  ].join('');
@@ -267,6 +279,8 @@ function makeTemplate(type,_name,errEnd){
         console.log('create ' + htmlpath);
       }
     });
+  }
+  if( type.css ){
     fs.exists(csspath, function(exists){
       if(exists){
         console.log('_'+outname+'.scss already exists.');
@@ -281,6 +295,7 @@ function makeTemplate(type,_name,errEnd){
         console.log('create ' + csspath);
       }
     });
+  }
 /* umaku ikanai
     let importStr;
     if(type.rule === 'singular'){
@@ -296,7 +311,6 @@ function makeTemplate(type,_name,errEnd){
       }
     });
 */
-  }
 //  if( type.path === 'models' || type.path === 'collections'
 //   || type.path === 'itemviews' || type.path === 'compositeviews' ) {
     fs.exists(testpath, function(exists){
@@ -380,6 +394,16 @@ gulp.task('templateCompositeView', function(){
   });
 });
 
+gulp.task('templateLayoutView', function(){
+  var param = process.argv;
+  if(param.length < 5){ throw 'dame desu yo'}
+  var name = param[4];
+  [
+    {type: tr.layoutView, err: true},
+  ].forEach(function(o){
+    makeTemplate(o.type, name, o.err);
+  });
+});
 
 gulp.task('typedoc', function() {
   return gulp.src([
