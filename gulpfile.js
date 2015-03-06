@@ -244,23 +244,23 @@ var templateOptions = {
 
 var templateRules = {
   'model'         : {rule:     'singular'     , path: 'models',
-                     template: 'model'     , prefix: '',
-                     html: false, css: false },
+                     template: 'model'     , prefix: ''
+                     },
   'collection'    : {rule:     'plural'       , path: 'collections',
                      template: 'collection', prefix: '',
-                     html: false, css: false },
+                     router: true },
   'itemView'      : {rule:     'singular'     , path: 'itemviews',
                      template: 'itemview'  , prefix: 'View',
                      html: true,  css: true  },
   'collectionView': {rule:     'plural'       , path: 'collectionviews',
                      template: 'collectionview', prefix: 'View',
-                     html: false, css: false },
+                     },
   'compositeView' : {rule:     'plural'       , path: 'compositeviews',
                      template: 'compositeview', prefix: 'View',
                      html: true,  css: true  },
   'layoutView'    : {rule:     'origin'       , path: 'layoutviews',
                      template: 'layoutview'   , prefix: 'LayoutView',
-                     html: true,  css: false },
+                     html: true },
 };
 var tr = templateRules;
 
@@ -286,6 +286,8 @@ function makeTemplate(type,_name,errEnd){
   var testpath = [testdir, '/', outname, 'Test.ts' ].join('');
   var cssdir   = 'app/scss';
   var csspath  = [cssdir, '/_', outname, '.scss' ].join('');
+  var routerdir  = 'app/typescripts/routers';
+  var routerpath = [routerdir, '/', outname, 'Router.ts'].join('');
 
   fs.exists(tspath, function(exists){
     if(exists && errEnd){
@@ -331,6 +333,22 @@ function makeTemplate(type,_name,errEnd){
           }))
           .pipe(gulp.dest(cssdir));
         console.log('create ' + csspath);
+      }
+    });
+  }
+  if( type.router ){
+    fs.exists(routerpath, function(exists){
+      if(exists){
+        console.log(outname+'Router.ts already exists.');
+      } else {
+        gulp.src('template/router.ts')
+          .pipe(template({name: name,names: names}))
+          .pipe(rename({
+            basename: outname,
+            extname:  'Router.ts'
+          }))
+          .pipe(gulp.dest(routerdir));
+        console.log('create ' + routerpath);
       }
     });
   }

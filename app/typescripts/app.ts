@@ -16,6 +16,8 @@ import u = require('underscore');
 
 // import SomeView  = require('./itemviews/SomeView');
 
+import AppRouter = require('./routers/AppRouter');
+
 export class Application extends Marionette.Application {
   MainRegion: Marionette.Region;
 
@@ -40,6 +42,7 @@ export class Application extends Marionette.Application {
 }
 
 (function(){
+  AppRouter.start();
   var app: Application = new Application();
   app.start();
 })();
