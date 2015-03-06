@@ -45,10 +45,11 @@ class MainRouter extends Marionette.AppRouter {
   }
 }
 
-class MainController extends Marionette.Controller {
+class MainController extends Marionette.Object {
   router: MainRouter;
-  constructor(options?: any){
-    super(options);
+
+  constructor(){
+    super();
   }
   hello(){
     console.log('hello');
@@ -56,15 +57,15 @@ class MainController extends Marionette.Controller {
 }
 
 var controller = new MainController();
-var router     = new MainRouter({
+var mainRouter = new MainRouter({
   appRoutes: {
-    '': 'hello',
+    'users': 'hello',
   },
   routes: {},
   controller: controller
 });
 
-controller.router = router;
+controller.router = mainRouter;
 
 (function(){
   var app: Application = new Application();
