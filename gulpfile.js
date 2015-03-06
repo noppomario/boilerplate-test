@@ -2,6 +2,7 @@
 
 // Project Information
 var project = require('./package.json');
+var personal = require('./personalSettings.json');
 
 // Gulp Utils
 var gulp = require("gulp");
@@ -44,6 +45,9 @@ var typedoc     = require('gulp-typedoc');
 // Cleaner
 var clean       = require('gulp-clean');
 
+// Open Web Browser
+var os   = require('os');
+var open = require('gulp-open');
 
 var path = {
   tsFiles:  'app/typescripts/**/*.ts',
@@ -52,6 +56,40 @@ var path = {
   tsMain:   'app/typescripts/app.ts',
   jsDir:    'app/scripts',
 };
+
+var osType = {
+  'linux':   'Linux',
+  'ubuntu':  'Linux',
+  'mac':     'Darwin',
+  'osx':     'Darwin',
+  'windows': 'Windows_NT',
+  'win':     'Windows_NT',
+}
+
+gulp.task('open', function(){
+  var currentOS = 'auto';
+  if ( personal.os != undefined ){
+    currentOS = osType[personal.os.toLowerCase()] || 'auto';
+  }
+  if ( currentOS === 'auto' ){
+    currentOS = os.type();
+  }
+
+  console.log(currentOS);
+
+  var currentWebBrowser = 'auto';
+
+  if ( currentOS === 'Linux' ){
+    gulp.src('app/index.html')
+      .pipe(open('',{app: 'chromium-browser', url: 'http://localhost:4649/' }));
+  } else if ( currentOS === 'Windows_NT' ){
+
+  } else if ( currentOS === 'Darwin' ){
+
+  }
+
+});
+
 
 
 // compile all with lint
@@ -428,7 +466,8 @@ gulp.task("clean:test", function(){
 });
 
 gulp.task('hello', function(){
-  console.log( 'hello' );
+  let message = personal.message || 'hello';
+  console.log( message );
 });
 
 gulp.task('nyamazing', function(){
