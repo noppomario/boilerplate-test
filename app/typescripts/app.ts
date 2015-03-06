@@ -16,34 +16,29 @@ import u = require('underscore');
 
 // import SomeView  = require('./itemviews/SomeView');
 
-class MyApplication extends Marionette.Application {
-  initialize(options?: any) {
-    console.log('initializing application');
-    this.layoutView = new AppLayoutView();
-  }
-
+export class Application extends Marionette.Application {
+  MainRegion: Marionette.Region;
   layoutView: AppLayoutView;
-  mainRegion: Marionette.Region;
+
+  constructor() {
+    console.log('initializing application');
+    super();
+
+    this.layoutView = new AppLayoutView();
+
+    this.addRegions({
+      MainRegion: '#main',
+    });
+
+    if ( Backbone.history ){
+      Backbone.history.start({pushState:true});
+    }
+  }
 
   onStart() {
-    this.mainRegion = new Marionette.Region({ el: '#main' });
-    this.layoutView.addRegion('main', this.mainRegion);
-    this.layoutView.render();
+    this.MainRegion.reset();
 
-
-    //this.mainRegion.show(someview);
-  }
-}
-
-class AppLayoutView extends Marionette.LayoutView<Backbone.Model> {
-  template:(obj?:any)=>string;
-  constructor() {
-    super({ el: '#mainRegion' });
-    this.template = u.template('<div id="main"></div>');
-  }
-
-  initialize(options?: any) {
-    console.log('initializing layoutview');
+    //this.MainRegion.show(someView);
   }
 }
 
@@ -73,10 +68,10 @@ var router     = new MainRouter({
 });
 
 controller.router = router;
-Backbone.history.start({pushState:true});
 
-var app: MyApplication = new MyApplication();
-app.start();
-
+(function(){
+  var app: Application = new Application();
+  app.start();
+})();
 
 
