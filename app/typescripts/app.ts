@@ -18,13 +18,10 @@ import u = require('underscore');
 
 export class Application extends Marionette.Application {
   MainRegion: Marionette.Region;
-  layoutView: AppLayoutView;
 
   constructor() {
     console.log('initializing application');
     super();
-
-    this.layoutView = new AppLayoutView();
 
     this.addRegions({
       MainRegion: '#main',
