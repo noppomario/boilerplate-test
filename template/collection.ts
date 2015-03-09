@@ -19,6 +19,15 @@ class <%= names %> extends Backbone.Collection<<%= name %>> {
     return res.list;
   }
   */
+  /*
+  comparator(arg1: <%= name %>, to?: <%= name %>):number {
+    if(to instanceof <%= name %>){
+      return arg1.name.localeCompare(to.name, 'ja', {numeric: true});
+    } else {
+      return null; // nazo
+    }
+  }
+  */
 }
 
 export = <%= names %>;

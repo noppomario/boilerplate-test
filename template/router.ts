@@ -18,20 +18,26 @@ module <%= names %>Router {
   class <%= names %>Controller extends Marionette.Object {
     router: Marionette.AppRouter;
 
-    constructor(){
+    constructor(options?:any){
       super();
     }
 
     hello(){
       console.log('It\'s <%= names %> Router');
     }
+
+    helloId(_id:string){
+      var modelId = parseInt(_id, 10);
+      console.log('It\'s <%= names %> Router', modelId);
+    }
   }
 
-  export function start(){
-    var <%= low %>Controller = new <%= names %>Controller();
+  export function start(options?:any){
+    var <%= low %>Controller = new <%= names %>Controller(options);
     var <%= low %>Router     = new Marionette.AppRouter({
       appRoutes: {
         '<%= low %>': 'hello',
+        '<%= low %>/:id': 'helloId',
       },
       routes: {},
       controller: <%= low %>Controller

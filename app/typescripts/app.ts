@@ -29,20 +29,18 @@ export class Application extends Marionette.Application {
       MainRegion: '#main',
     });
 
+    AppRouter.start();
+
     if ( Backbone.history ){
       Backbone.history.start({pushState:true});
     }
   }
 
   onStart() {
-    this.MainRegion.reset();
-
-    //this.MainRegion.show(someView);
   }
 }
 
 (function(){
-  AppRouter.start();
   var app: Application = new Application();
   app.start();
 })();
