@@ -23,6 +23,9 @@ var <%= lows %> = {
     });
   },
   createNewModel: function(name){
+    if ( name == undefined || name === '' ){
+      return null;
+    }
     const already = this.hasModelByName(name);
     if ( already ){
       return null;
