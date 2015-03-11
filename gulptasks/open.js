@@ -19,7 +19,7 @@ module.exports = function(gulp){
   };
 
   gulp.task('open', function(){
-    var currentOS = 'auto';
+    let currentOS = 'auto';
     if ( personal.os != undefined ){
       currentOS = osType[personal.os.toLowerCase()] || 'auto';
     }
@@ -29,12 +29,12 @@ module.exports = function(gulp){
 
     console.log(currentOS);
 
-    var currentWebBrowser = 'auto';
+    let currentWebBrowser = 'auto';
     if ( personal.webBrowser != undefined ){
       currentWebBrowser = personal.webBrowser;
     }
 
-    var port = "auto";
+    let port = "auto";
     if ( personal.port != undefined ){
       port = personal.port;
     }
