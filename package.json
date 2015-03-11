@@ -29,7 +29,7 @@
     "showdoc": "chromium-browser docs/index.html",
     "server":  "gulp server --env",
     "status":  "pm2 list",
-    "show": "chromium-browser http://localhost:4649/",
+    "show": "gulp open",
     "sass": "gulp sass",
     "scss": "gulp sass",
     "hello": "gulp hello",

@@ -8,31 +8,53 @@ module.exports = function(gulp){
 
   var os   = require('os');
   var open = require('gulp-open');
+  var __   = require('underscore');
 
-  const osType = {
-    'linux':   'Linux',
-    'ubuntu':  'Linux',
-    'mac':     'Darwin',
-    'osx':     'Darwin',
-    'windows': 'Windows_NT',
-    'win':     'Windows_NT',
-  };
+  const osType = [
+    {name:'Linux',      alt: new Set(['linux', 'ubuntu', 'centos'])},
+    {name:'Darwin',     alt: new Set(['mac', 'osx', 'os x'])},
+    {name:'Windows_NT', alt: new Set(['windows', 'win'])},
+  ];
+  const wbType = [
+    {alt:new Set(['g', 'google', 'chrome', 'google-chrome']), type:{
+      Linux:      'chromium-browser',
+      Darwin:     'google chrome',
+      Windows_NT: 'chrome',
+    }},
+    {alt:new Set(['f', 'firefox', 'fx', 'mozilla']), type:{
+      Linux:      'firefox',
+      Darwin:     'firefox',
+      Windows_NT: 'firefox',
+    }},
+    {alt:new Set(['s', 'safari']), type:{
+      Linux:      'safari',
+      Darwin:     'safari',
+      Windows_NT: 'safari',
+    }}];
 
   gulp.task('open', function(){
-    let currentOS = 'auto';
-    if ( personal.os != undefined ){
-      currentOS = osType[personal.os.toLowerCase()] || 'auto';
-    }
-    if ( currentOS === 'auto' ){
-      currentOS = os.type();
-    }
+    const currentOS = personal.os || 'auto';
+    const currentOSs = osType.filter(function(o){
+      return o.alt.has(currentOS.toLowerCase());
+    }).map(function(o){
+      return o.name;
+    });
+    const currentOS2 = currentOSs.length === 0 ? os.type()
+                   : currentOSs[0] === 'auto'? os.type()
+                                             : currentOSs[0];
 
-    console.log(currentOS);
+    const currentWB = personal.webBrowser || 'auto';
+    const currentWBs = wbType.filter(function(b){
+      return b.alt.has(currentWB.toLowerCase());
+    }).map(function(b){
+      return b.type[currentOS2];
+    });
+    const currentWB2 = currentWBs.length === 0 ? wbType[0].type[currentOS2]
+                     : currentWBs[0] === 'auto'? wbType[0].type[currentOS2]
+                                               : currentWBs[0];
 
-    let currentWebBrowser = 'auto';
-    if ( personal.webBrowser != undefined ){
-      currentWebBrowser = personal.webBrowser;
-    }
+    console.log(currentOS2);
+    console.log(currentWB2);
 
     let port = "auto";
     if ( personal.port != undefined ){
@@ -42,23 +64,8 @@ module.exports = function(gulp){
       port = 4649;
     }
 
-    if ( currentWebBrowser != 'auto' ){
-      gulp.src('app/index.html')
-        .pipe(open('',{app: currentWebBrowser, url: 'http://localhost:'+port+'/' }));
-    } else {
-      gulp.src('app/index.html')
-        .pipe(open('',{app: 'chromium-browser', url: 'http://localhost:'+port+'/' }));
-    }
-/*
-    if ( currentOS === 'Linux' ){
-      gulp.src('app/index.html')
-        .pipe(open('',{app: 'chromium-browser', url: 'http://localhost:4649/' }));
-    } else if ( currentOS === 'Windows_NT' ){
-
-    } else if ( currentOS === 'Darwin' ){
-
-    }
-*/
+    gulp.src('app/index.html')
+        .pipe(open('',{app: currentWB2, url: 'http://localhost:'+port+'/' }));
   });
 };
 
