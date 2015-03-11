@@ -28,10 +28,6 @@ var espowerify  = require('espowerify');
 var tslint      = require('gulp-tslint');
 var tslintConfig = require('./tslint.json');
 
-// Open Web Browser
-var os   = require('os');
-var open = require('gulp-open');
-
 var path = {
   tsFiles:  'app/typescripts/**/*.ts',
   dtsFiles: 'app/typescripts/typings/**/*.ts',
@@ -39,41 +35,6 @@ var path = {
   tsMain:   'app/typescripts/app.ts',
   jsDir:    'app/scripts',
 };
-
-var osType = {
-  'linux':   'Linux',
-  'ubuntu':  'Linux',
-  'mac':     'Darwin',
-  'osx':     'Darwin',
-  'windows': 'Windows_NT',
-  'win':     'Windows_NT',
-}
-
-gulp.task('open', function(){
-  var currentOS = 'auto';
-  if ( personal.os != undefined ){
-    currentOS = osType[personal.os.toLowerCase()] || 'auto';
-  }
-  if ( currentOS === 'auto' ){
-    currentOS = os.type();
-  }
-
-  console.log(currentOS);
-
-  var currentWebBrowser = 'auto';
-
-  if ( currentOS === 'Linux' ){
-    gulp.src('app/index.html')
-      .pipe(open('',{app: 'chromium-browser', url: 'http://localhost:4649/' }));
-  } else if ( currentOS === 'Windows_NT' ){
-
-  } else if ( currentOS === 'Darwin' ){
-
-  }
-
-});
-
-
 
 // compile all with lint
 gulp.task('compile-all', ['lint', 'compile-index']);
@@ -208,6 +169,7 @@ gulp.task('test:phantom', function(done){
   runSequence('clean:test', 'compile-test', /*'power-assert-remote',*/ '_test:phantom');
 });
 
+var open = require('./gulptasks/open')(gulp);
 var template = require('./gulptasks/template')(gulp);
 var clean = require('./gulptasks/clean')(gulp);
 var sass = require('./gulptasks/sass')(gulp);

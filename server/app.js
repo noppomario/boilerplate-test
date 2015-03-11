@@ -1,5 +1,9 @@
 "use strict";
 
+// Project Information
+var project = require('../package.json');
+var personal = require('../personalSettings.json');
+
 var express    = require('express');
 var bodyParser = require('body-parser');
 var app        = express();
@@ -17,5 +21,14 @@ app.use('/', router);
 
 app.use(express.static(__dirname + '/../app'));
 
-app.listen(4649);
+var port = 'auto';
+if ( personal.port != undefined ){
+  port = personal.port;
+}
+if ( port === 'auto' ){
+  port = '4649';
+}
+port = parseInt(port,10);
+
+app.listen(port);
 

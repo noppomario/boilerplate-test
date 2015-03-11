@@ -1,4 +1,5 @@
 {
   "webBrowser": "auto",
-  "//os": "auto"
+  "os": "auto",
+  "port": "auto"
 }
