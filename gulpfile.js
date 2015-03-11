@@ -49,6 +49,9 @@ var clean       = require('gulp-clean');
 var os   = require('os');
 var open = require('gulp-open');
 
+// Express Server
+var pm2 = require('pm2');
+
 var path = {
   tsFiles:  'app/typescripts/**/*.ts',
   dtsFiles: 'app/typescripts/typings/**/*.ts',
@@ -95,12 +98,10 @@ gulp.task('open', function(){
 // compile all with lint
 gulp.task('compile-all', ['lint', 'compile-index']);
 
-
 function handleError(err){
   console.log(err.toString());
   this.emit('end');
 }
-
 
 gulp.task('compile-index', function(){
   return browserify('./'+path.tsMain, {
@@ -370,38 +371,20 @@ function makeTemplate(type,_name,errEnd){
       }
     });
   }
-/* umaku ikanai
-    let importStr;
-    if(type.rule === 'singular'){
-      importStr = '@import "'+name+'View";\n//<%= name %>';
+  fs.exists(testpath, function(exists){
+    if(exists){
+      console.log(outname+'Test.ts already exists.');
     } else {
-      importStr = '@import "'+names+'View";\n//<%= name %>';
+      gulp.src('template/'+type.template+'Test.ts')
+        .pipe(template({name: name,names: names}))
+        .pipe(rename({
+          basename: outname+'Test',
+          extname:  '.ts'
+        }))
+        .pipe(gulp.dest(testdir));
+      console.log('create ' + testpath);
     }
-    fs.exists('app/scss/index.scss', function(exists){
-      if(exists){
-        gulp.src('app/scss/index.scss')
-          .pipe(template({name: importStr},templateOptions))
-          .pipe(gulp.dest('app/scss')); 
-      }
-    });
-*/
-//  if( type.path === 'models' || type.path === 'collections'
-//   || type.path === 'itemviews' || type.path === 'compositeviews' ) {
-    fs.exists(testpath, function(exists){
-      if(exists){
-        console.log(outname+'Test.ts already exists.');
-      } else {
-        gulp.src('template/'+type.template+'Test.ts')
-          .pipe(template({name: name,names: names}))
-          .pipe(rename({
-            basename: outname+'Test',
-            extname:  '.ts'
-          }))
-          .pipe(gulp.dest(testdir));
-        console.log('create ' + testpath);
-      }
-    });
-//  }
+  });
 };
 
 gulp.task('templateModel', function(){
@@ -501,8 +484,81 @@ gulp.task("clean:test", function(){
   return gulp.src(['app/compiled-tests', 'app/powered-tests', 'app/dts', 'app/scripts']).pipe(clean());
 });
 
+
+
+var serverFunc = {
+  connect: function(){
+    return new Promise(function(resolve, reject){
+      pm2.connect(function(err){
+        if(err){ reject('pm2 connect error'); }
+        else   { resolve('pm2 connecting');   }
+      });
+    });
+  },
+  start: function(value){
+    console.log(value);
+    return new Promise(function(resolve, reject){
+      pm2.start('server/app.js', {name: 'express-server'}, function(err, proc){
+        if (err){ reject('express-server start error'); }
+        else    { resolve('express-server starting');   }
+      });
+    });
+  },
+  stop: function(value){
+    console.log(value);
+    return new Promise(function(resolve, reject){
+      pm2.stop('express-server', function(err, proc){
+        if (err){ reject('express-server stop error'); }
+        else    { resolve('express-server stopping');  }
+      });
+    });
+  },
+  reload: function(value){
+    console.log(value);
+    return new Promise(function(resolve, reject){
+      pm2.reload('express-server', function(err, proc){
+        if (err){ reject('express-server reload error'); }
+        else    { resolve('express-server reloading');   }
+      });
+    });
+  },
+  delete: function(value){
+    console.log(value);
+    return new Promise(function(resolve, reject){
+      pm2.delete('express-server', function(err, proc){
+        if (err){ reject('express-server delete error'); }
+        else    { resolve('express-server deleting');    }
+      });
+    });
+  },
+  error: function(error){
+    return 'ERROR: ' + error;
+  },
+  disconnect: function(value){
+    console.log(value);
+    pm2.disconnect(function(){
+      console.log('pm2 disconnected');
+    });
+  },
+};
+
+gulp.task('server', function(){
+  const param = process.argv;
+  if(param.length < 5){ throw 'dame desu yo'}
+  const type = param[4];
+  if( serverFunc[type] != undefined ){
+    serverFunc.connect().then(serverFunc[type])
+      .catch(serverFunc.error)
+      .then(serverFunc.disconnect);
+  } else {
+    throw 'server type none.';
+  }
+});
+
+
+
 gulp.task('hello', function(){
-  let message = personal.message || 'hello';
+  const message = personal.message || 'hello';
   console.log( message );
 });
 
