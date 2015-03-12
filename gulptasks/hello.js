@@ -1,12 +1,13 @@
-"use strict";
-
 // Project Information
-var project = require('../package.json');
-var personal = require('../personalSettings.json');
+const project = require('../package.json');
+const personal = require('../personalSettings.json');
 
 module.exports = function(gulp){
+  'use strict';
+
   gulp.task('hello', function(){
     const message = personal.message || 'hello';
     console.log( message );
   });
+
 };

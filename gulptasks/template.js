@@ -1,45 +1,93 @@
-"use strict";
-
 // Project Information
-var project = require('../package.json');
-var personal = require('../personalSettings.json');
+const project = require('../package.json');
+const personal = require('../personalSettings.json');
 
 module.exports = function(gulp){
+  'use strict';
 
-  var rename = require('gulp-rename');
-
-  var template    = require('gulp-template');
-  var conflict    = require('gulp-conflict');
-  var fs          = require('fs');
-  var inflection  = require('inflection');
-  var __          = require('underscore');
+  const rename = require('gulp-rename');
+  const template    = require('gulp-template');
+  const conflict    = require('gulp-conflict');
+  const fs          = require('fs');
+  const inflection  = require('inflection');
+  const __          = require('underscore');
 
   const templateOptions = {
     'interpolate': /\/\/<%=([\s\S]+?)%>/g,
     //  'evaluate': /{{([\s\S]+?)}}/g
   };
+  const htmlOptions   = { ext: '.html', dir: 'app/templates', source: 'template/view' };
+  const routerOptions = { ext: '.ts',   dir: 'app/typescripts/routers', source: 'template/router', suffix: 'Router' };
+  const serverOptions = { ext: '.js',   dir: 'server', source: 'template/serverRouter' };
+  const testOptions   = { ext: '.ts',   dir: 'app/typescripts/tests', suffix: 'Test' };
+  const cssOptions    = { ext: '.scss', dir: 'app/scss', prefix: '_' };
 
   const templateRules = {
-    'model'         : {rule:     'singular'     , path: 'models',
-                       template: 'model'     , prefix: ''
-                       },
-    'collection'    : {rule:     'plural'       , path: 'collections',
-                       template: 'collection', prefix: '',
-                       router: true, server: true },
-    'itemView'      : {rule:     'singular'     , path: 'itemviews',
-                       template: 'itemview'  , prefix: 'View',
-                       html: true,  css: true  },
-    'collectionView': {rule:     'plural'       , path: 'collectionviews',
-                       template: 'collectionview', prefix: 'View',
-                       },
-    'compositeView' : {rule:     'plural'       , path: 'compositeviews',
-                       template: 'compositeview', prefix: 'View',
-                       html: true,  css: true  },
-    'layoutView'    : {rule:     'origin'       , path: 'layoutviews',
-                       template: 'layoutview'   , prefix: 'LayoutView',
-                       html: true },
+    'model' : {
+      ts: { ext: '.ts', dir: 'app/typescripts/models', source: 'template/model'},
+      test: __.extend(testOptions, {source: 'template/modelTest'}),
+      rule: 'singular', prefix: ''
+    },
+    'collection' : {
+      ts: { ext: '.ts', dir: 'app/typescripts/collections', source: 'template/collection'},
+      test: __.extend(testOptions, {source: 'template/collectionTest'}),
+      router: routerOptions,
+      server: serverOptions,
+      rule: 'plural', prefix: '',
+    },
+    'itemView' : {
+      ts: { ext: '.ts', dir: 'app/typescripts/itemviews', source: 'template/itemview'},
+      test: __.extend(testOptions, {source: 'template/itemviewTest'}),
+      html: htmlOptions,
+      css: __.extend(cssOptions, {source: 'template/itemview'}),
+      rule: 'singular', prefix: 'View',
+    },
+    'collectionView': {
+      ts: { ext: '.ts', dir: 'app/typescripts/collectionviews', source: 'template/collectionview'},
+      test: __.extend(testOptions, {source: 'template/collectionviewTest'}),
+      rule: 'plural', prefix: 'View',
+    },
+    'compositeView' : {
+      ts: { ext: '.ts', dir: 'app/typescripts/compositeviews', source: 'template/compositeview'},
+      test: __.extend(testOptions, {source: 'template/compositeviewTest'}),
+      html: htmlOptions,
+      css: __.extend(cssOptions, {source: 'template/compositeview'}),
+      rule: 'plural', prefix: 'View',
+     },
+    'layoutView' : {
+      ts: { ext: '.ts', dir: 'app/typescripts/layoutviews', source: 'template/layoutview'},
+      test: __.extend(testOptions, {source: 'template/layoutviewTest'}),
+      html: htmlOptions,
+      rule: 'origin', prefix: 'LayoutView',
+    },
   };
   const tr = templateRules;
+
+  const ff = function(errEnd, options, outname, replaces){
+    const prefix = options.prefix || '';
+    const suffix = options.suffix || '';
+    const name   = prefix + outname + suffix;
+    const ext    = options.ext;
+    const dir    = options.dir;
+    const path   = [dir, '/', name, ext ].join('');
+    const source = options.source + ext;
+    fs.exists(path, function(exists){
+      if(exists && errEnd){
+        throw name + ext + ' already exists.';
+      } else if (exists) {
+        console.log(name + ext + ' already exists.');      
+      } else {
+
+        gulp.src(source)
+          .pipe(template(replaces))
+          .pipe(rename({basename: name, extname: ext}))
+          .pipe(gulp.dest(dir));
+        //f( source, replaces,
+        //   {basename: name, extname: ext}, dir );
+        console.log('create ' + path);
+      }
+    });
+  };
 
   function makeTemplate(type,_name,errEnd){
     var outname;
@@ -55,111 +103,13 @@ module.exports = function(gulp){
       names   = __name;
       outname = __name + type.prefix;
     }
-    var tsdir = 'app/typescripts/' + type.path;
-    var tspath   = [tsdir, '/', outname, '.ts'  ].join('');
-    var htmldir  = 'app/templates';
-    var htmlpath = [htmldir, '/', outname, '.html'].join('');
-    var testdir  = 'app/typescripts/tests';
-    var testpath = [testdir, '/', outname, 'Test.ts' ].join('');
-    var cssdir   = 'app/scss';
-    var csspath  = [cssdir, '/_', outname, '.scss' ].join('');
-    var routerdir  = 'app/typescripts/routers';
-    var routerpath = [routerdir, '/', outname, 'Router.ts'].join('');
-    var serverdir  = 'server';
-    var serverpath = [serverdir, '/', outname, '.js'].join('');
+    const replaces = {name: name, names: names};
 
-    fs.exists(tspath, function(exists){
-      if(exists && errEnd){
-        throw outname+'.ts already exists.';
-      } else if (exists) {
-        console.log(outname+'.ts already exists.');      
-      } else {
-        gulp.src('template/'+type.template+'.ts')
-          .pipe(template({name: name,names: names}))
-          .pipe(rename({
-            basename: outname,
-            extname:  '.ts'
-          }))
-          .pipe(gulp.dest(tsdir));
-        console.log('create ' + tspath);
-      }
-    });
-    if( type.html ){
-      fs.exists(htmlpath, function(exists){
-        if(exists){
-          console.log(outname+'.html already exists.');
-        } else {
-          gulp.src('template/view.html')
-            .pipe(rename({
-              basename: outname,
-              extname:  '.html'
-            }))
-            .pipe(gulp.dest(htmldir));
-          console.log('create ' + htmlpath);
-        }
-      });
-    }
-    if( type.css ){
-      fs.exists(csspath, function(exists){
-        if(exists){
-          console.log('_'+outname+'.scss already exists.');
-        } else {
-          gulp.src('template/'+type.template+'.scss')
-            .pipe(template({name: name,names: names}))
-            .pipe(rename({
-              basename: '_'+outname,
-              extname: '.scss'
-            }))
-            .pipe(gulp.dest(cssdir));
-          console.log('create ' + csspath);
-        }
-      });
-    }
-    if( type.router ){
-      fs.exists(routerpath, function(exists){
-        if(exists){
-          console.log(outname+'Router.ts already exists.');
-        } else {
-          gulp.src('template/router.ts')
-            .pipe(template({name: name,names: names}))
-            .pipe(rename({
-              basename: outname,
-              extname:  'Router.ts'
-            }))
-            .pipe(gulp.dest(routerdir));
-          console.log('create ' + routerpath);
-        }
-      });
-    }
-    if( type.server ){
-      fs.exists(serverpath, function(exists){
-        if(exists){
-          console.log(outname+'.js already exists.');
-        } else {
-          gulp.src('template/serverRouter.js')
-            .pipe(template({name: name,names: names}))
-            .pipe(rename({
-              basename: outname,
-              extname:  '.js'
-            }))
-            .pipe(gulp.dest(serverdir));
-          console.log('create ' + serverpath);
-        }
-      });
-    }
-    fs.exists(testpath, function(exists){
-      if(exists){
-        console.log(outname+'Test.ts already exists.');
-      } else {
-        gulp.src('template/'+type.template+'Test.ts')
-          .pipe(template({name: name,names: names}))
-          .pipe(rename({
-            basename: outname+'Test',
-            extname:  '.ts'
-          }))
-          .pipe(gulp.dest(testdir));
-        console.log('create ' + testpath);
-      }
+    ['ts', 'html', 'css', 'router', 'server', 'test' ].forEach(function(t){
+      if(! type[t]) return;
+      const e = t === 'ts' ? errEnd
+                           : false;
+      ff(e, type[t], outname, replaces);
     });
   };
 

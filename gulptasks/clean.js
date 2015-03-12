@@ -1,34 +1,32 @@
-"use strict";
-
 // Project Information
-var project = require('../package.json');
-var personal = require('../personalSettings.json');
+const project = require('../package.json');
+const personal = require('../personalSettings.json');
 
 module.exports = function(gulp){
+  'use strict';
 
-  var clean = require('gulp-clean');
+  const clean = require('gulp-clean');
+  const __    = require('underscore');
 
-  const cleanFile = [
+  const cleanTestFiles = [
     'app/compiled-tests',
     'app/powered-tests',
     'app/dts',
+  ];
+
+  const cleanFiles = __.union([
+    'app/styles',
     'app/scripts',
-    'app/styles'
-  ];
-
-  const cleanTestFile = [
-    'app/compiled-tests',
-    'app/powered-tests',
-    'app/dts',
-    'app/scripts'
-  ];
+  ], cleanTestFiles);
 
   gulp.task("clean", function(){
-    return gulp.src(cleanFile).pipe(clean());
+    console.log('clean files', cleanFiles);
+    return gulp.src(cleanFiles).pipe(clean());
   });
 
   gulp.task("clean:test", function(){
-    return gulp.src(cleanTestFile).pipe(clean());
+    console.log('clean test files', cleanTestFiles);
+    return gulp.src(cleanTestFiles).pipe(clean());
   });
 
 };

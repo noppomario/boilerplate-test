@@ -1,15 +1,17 @@
-"use strict";
-
 // Project Information
-var project = require('../package.json');
-var personal = require('../personalSettings.json');
-
-// Documents
+const project = require('../package.json');
+const personal = require('../personalSettings.json');
 
 module.exports = function(gulp, path){
-  var typedoc     = require('gulp-typedoc');
-  
-  const docTarget = [ path.tsFiles, '!'+path.dtsFiles, '!'+path.tsTests];
+  'use strict';
+
+  const typedoc     = require('gulp-typedoc');
+
+  const docTarget = [
+    path.tsFiles,
+    '!'+path.dtsFiles,
+    '!'+path.tsTests,
+  ];
   
   gulp.task('typedoc', function() {
     return gulp.src(docTarget)
@@ -20,4 +22,5 @@ module.exports = function(gulp, path){
         target: 'es5'
       }));
   });
+
 };

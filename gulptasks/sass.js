@@ -1,13 +1,12 @@
-"use strict";
-
 // Project Information
-var project = require('../package.json');
-var personal = require('../personalSettings.json');
+const project = require('../package.json');
+const personal = require('../personalSettings.json');
 
 module.exports = function(gulp){
+  'use strict';
 
-  var sass = require('gulp-sass');
-  var sourcemaps  = require('gulp-sourcemaps');
+  const sass = require('gulp-sass');
+  const sourcemaps  = require('gulp-sourcemaps');
 
   gulp.task('sass', function(){
     return gulp.src('app/scss/**/*.scss')

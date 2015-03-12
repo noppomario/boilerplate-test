@@ -1,13 +1,12 @@
-"use strict";
-
 // Project Information
-var project = require('../package.json');
-var personal = require('../personalSettings.json');
+const project = require('../package.json');
+const personal = require('../personalSettings.json');
 
 module.exports = function(gulp){
+  'use strict';
 
-  var os   = require('os');
-  var open = require('gulp-open');
+  const os   = require('os');
+  const open = require('gulp-open');
 
   const osTypes = new Set(['Linux', 'Darwin', 'Windows_NT']);
   const defaultWebBrowser = {
