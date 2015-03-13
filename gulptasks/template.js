@@ -25,38 +25,38 @@ module.exports = function(gulp){
   const templateRules = {
     'model' : {
       ts: { ext: '.ts', dir: 'app/typescripts/models', source: 'template/model'},
-      test: __.extend(testOptions, {source: 'template/modelTest'}),
+      test: __.extend({}, testOptions, {source: 'template/modelTest'}),
       rule: 'singular', prefix: ''
     },
     'collection' : {
       ts: { ext: '.ts', dir: 'app/typescripts/collections', source: 'template/collection'},
-      test: __.extend(testOptions, {source: 'template/collectionTest'}),
+      test: __.extend({}, testOptions, {source: 'template/collectionTest'}),
       router: routerOptions,
       server: serverOptions,
       rule: 'plural', prefix: '',
     },
     'itemView' : {
       ts: { ext: '.ts', dir: 'app/typescripts/itemviews', source: 'template/itemview'},
-      test: __.extend(testOptions, {source: 'template/itemviewTest'}),
+      test: __.extend({}, testOptions, {source: 'template/itemviewTest'}),
       html: htmlOptions,
-      css: __.extend(cssOptions, {source: 'template/itemview'}),
+      css: __.extend({}, cssOptions, {source: 'template/itemview'}),
       rule: 'singular', prefix: 'View',
     },
     'collectionView': {
       ts: { ext: '.ts', dir: 'app/typescripts/collectionviews', source: 'template/collectionview'},
-      test: __.extend(testOptions, {source: 'template/collectionviewTest'}),
+      test: __.extend({}, testOptions, {source: 'template/collectionviewTest'}),
       rule: 'plural', prefix: 'View',
     },
     'compositeView' : {
       ts: { ext: '.ts', dir: 'app/typescripts/compositeviews', source: 'template/compositeview'},
-      test: __.extend(testOptions, {source: 'template/compositeviewTest'}),
+      test: __.extend({}, testOptions, {source: 'template/compositeviewTest'}),
       html: htmlOptions,
-      css: __.extend(cssOptions, {source: 'template/compositeview'}),
+      css: __.extend({}, cssOptions, {source: 'template/compositeview'}),
       rule: 'plural', prefix: 'View',
      },
     'layoutView' : {
       ts: { ext: '.ts', dir: 'app/typescripts/layoutviews', source: 'template/layoutview'},
-      test: __.extend(testOptions, {source: 'template/layoutviewTest'}),
+      test: __.extend({}, testOptions, {source: 'template/layoutviewTest'}),
       html: htmlOptions,
       rule: 'origin', prefix: 'LayoutView',
     },
