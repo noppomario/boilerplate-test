@@ -1,34 +1,29 @@
 "use strict";
 
 // Project Information
-var project = require('../package.json');
-var personal = require('../personalSettings.json');
+const project = require('../package.json');
+const personal = require('../personalSettings.json');
 
-var express    = require('express');
-var bodyParser = require('body-parser');
-var app        = express();
-var __         = require('underscore');
-var path       = require('path');
+const express    = require('express');
+const bodyParser = require('body-parser');
+const app        = express();
+const __         = require('underscore');
+const path       = require('path');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-var router = express.Router();
+const router = express.Router();
 
-//var hoge = require('./Hoge')(router);
+//const hoge = require('./Hoge')(router);
 
 app.use('/', router);
 
 app.use(express.static(__dirname + '/../app'));
 
-var port = 'auto';
-if ( personal.port != undefined ){
-  port = personal.port;
-}
-if ( port === 'auto' ){
-  port = '4649';
-}
-port = parseInt(port,10);
+const port = personal.port === 'auto'   ? 4649
+           : personal.port != undefined ? parseInt(personal.port, 10)
+                                        : 4649;
 
 app.listen(port);
 
