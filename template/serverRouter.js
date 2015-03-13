@@ -53,9 +53,11 @@ var <%= lows %> = {
     });
   },
   getNewId: function(){
-    return Math.max.apply(this, this.collection.map(function(m){
-      return m.modelId;
-    })) + 1;
+    //return Math.max.apply(this, this.collection.map(function(m){
+    //  return m.modelId;
+    //})) + 1;
+    return this.collection.length === 0 ? 1
+         : __.chain(this.collection).pluck('modelId').max().value() + 1;
   },
   deleteModelById: function(_id){
     const id = parseInt(_id, 10);
