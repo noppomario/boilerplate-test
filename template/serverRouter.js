@@ -5,67 +5,65 @@
 var path       = require('path');
 var __         = require('underscore');
 
-var <%= lows %> = {
-  collection: [
-    {modelId: 1, name:'Mike'},
-    {modelId: 5, name:'Mary'},
-    {modelId: 7, name:'Bob'},
-  ],
-  getModelById: function(_id){
+var <%= lows %> = [
+  {modelId: 1, name:'Mike'},
+  {modelId: 5, name:'Mary'},
+  {modelId: 7, name:'Bob'},
+];
+
+var f = {
+  getModelById: function(collection, _id){
     const id = parseInt(_id, 10);
-    return __.find(this.collection, function(m){
+    return __.find(collection, function(m){
       return m.modelId === id;
     });
-  },
-  hasModelByName: function(name){
-    return this.collection.some(function(m){
+  }.bind(this, <%= lows %>),
+  hasModelByName: function(collection, name){
+    return collection.some(function(m){
       return m.name === name;
     });
-  },
-  createNewModel: function(name){
+  }.bind(this, <%= lows %>),
+  createNewModel: function(collection, name){
     if ( name == undefined || name === '' ){
       return null;
     }
-    const already = this.hasModelByName(name);
+    const already = f.hasModelByName(name);
     if ( already ){
       return null;
     }
-    const newId = this.getNewId();
+    const newId = f.getNewId();
     const newModel = {modelId: newId, name: name};
-    this.collection.push(newModel);
+    collection.push(newModel);
     return newModel;
-  },
-  changeModel: function(_id, name){
+  }.bind(this, <%= lows %>),
+  changeModel: function(collection, _id, name){
     const id = parseInt(_id, 10);
-    var model = this.getModelById(id);
-    const isSameName = this.isDuplicate(id, name);
+    var model = f.getModelById(id);
+    const isSameName = f.isDuplicate(id, name);
     if( model != undefined && ! isSameName ) {
       model.name = name;
       return model;
     } else {
       return null;
     }
-  },
-  isDuplicate: function(_id, name){
+  }.bind(this, <%= lows %>),
+  isDuplicate: function(collection, _id, name){
     const id = parseInt(_id, 10);
-    return __.some(this.collection, function(m){
+    return __.some(collection, function(m){
       return m.name === name && m.modelId !== id;
     });
-  },
-  getNewId: function(){
-    //return Math.max.apply(this, this.collection.map(function(m){
-    //  return m.modelId;
-    //})) + 1;
-    return this.collection.length === 0 ? 1
-         : __.chain(this.collection).pluck('modelId').max().value() + 1;
-  },
-  deleteModelById: function(_id){
+  }.bind(this, <%= lows %>),
+  getNewId: function(collection){
+    return collection.length === 0 ? 1
+         : __.chain(collection).pluck('modelId').max().value() + 1;
+  }.bind(this, <%= lows %>),
+  deleteModelById: function(collection, _id){
     const id = parseInt(_id, 10);
-    const newCollection = __.reject(this.collection, function(m){
+    const newCollection = __.reject(collection, function(m){
       return m.modelId === id;
     });
-    this.collection = newCollection;
-  },
+    <%= lows %> = newCollection;
+  }.bind(this, <%= lows %>),
 };
 
 module.exports = function(router){
@@ -75,8 +73,8 @@ module.exports = function(router){
       if(req.accepts('json')){
         res.set({'Content-Type': 'application/json'});
         res.json({
-          "total": <%= lows %>.collection.length,
-          "list" : <%= lows %>.collection,
+          "total": <%= lows %>.length,
+          "list" : <%= lows %>,
         });
       } else {
         res.sendFile('index.html', {
@@ -86,20 +84,20 @@ module.exports = function(router){
     })
     .post(function (req, res){
       res.set({'Content-Type': 'application/json'});
-      const newModel = <%= lows %>.createNewModel(req.body.name);
+      const newModel = f.createNewModel(req.body.name);
       if ( newModel == undefined ){
         res.sendStatus(409);
         return;
       }
       res.json(newModel);
-      console.log(<%= lows %>.collection);
+      console.log(<%= lows %>);
     });
 
   router.route('/<%= lows %>/:id')
     .get(function (req, res){
       if(req.accepts('json')){
         res.set({'Content-Type': 'application/json'});
-        const model = <%= lows %>.getModelById(req.params.id);
+        const model = f.getModelById(req.params.id);
         if( model != undefined ) {
           res.json(model);
         } else {
@@ -113,19 +111,19 @@ module.exports = function(router){
     })
     .put(function (req, res){
       res.set({'Content-Type': 'application/json'});
-      const model = <%= lows %>.changeModel(req.params.id,req.body.name);
+      const model = f.changeModel(req.params.id,req.body.name);
       if ( model != undefined ){
         res.json({response: 'OK'});
       } else {
         res.sendStatus(409);
       }
-      console.log(<%= lows %>.collection);
+      console.log(<%= lows %>);
     })
     .delete(function (req, res){
       res.set({'Content-Type': 'application/json'});
-      <%= lows %>.deleteModelById(req.params.id);
+      f.deleteModelById(req.params.id);
       res.json({response:'OK'});
-      console.log(<%= lows %>.collection);
+      console.log(<%= lows %>);
     });
 
   console.log("imported <%= names %> Router");
