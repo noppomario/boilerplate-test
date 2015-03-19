@@ -5,6 +5,7 @@ const personal = require('../personalSettings.json');
 module.exports = function(gulp){
   'use strict';
 
+  const gutil  = require('gulp-util');
   const rename = require('gulp-rename');
   const template    = require('gulp-template');
   const conflict    = require('gulp-conflict');
@@ -113,78 +114,72 @@ module.exports = function(gulp){
     });
   };
 
-  gulp.task('templateModel', function(){
-    var param = process.argv;
-    if(param.length < 5){ throw 'dame desu yo'}
-    var name = param[4];
-    [
-      {type: tr.model, err: true},
-    ].forEach(function(o){
-      makeTemplate(o.type, name, o.err);
+  const t = {
+    model:         function(name, paging, err){
+      makeTemplate(tr.model,    name, err);
+    },
+    itemView:      function(name, paging, err){
+      makeTemplate(tr.itemView, name, err);
+      t.model(name, paging, false);
+    },
+    collection:    function(name, paging, err){
+      makeTemplate(tr.collection, name, err);
+      t.model(name, paging, false);
+    },
+    collectionView: function(name, paging, err){
+      makeTemplate(tr.collectionView, name, err);
+      t.itemView(name, paging, false);
+      t.collection(name, paging, false);
+    },
+    compositeView: function(name, paging, err){
+      makeTemplate(tr.compositeView, name, err);
+      t.itemView(name, paging, false);
+      t.collection(name, paging, false);
+    },
+    layoutView:    function(name, paging, err){
+      makeTemplate(tr.layoutView, name, err);
+    },
+  };
+
+  const templateType = {
+    'm'     : t.model,
+    'model' : t.model,
+    'v'        : t.itemView,
+    'iv'       : t.itemView,
+    'view'     : t.itemView,
+    'itemview' : t.itemView,
+    'c'          : t.collection,
+    'collection' : t.collection,
+    'collectionview': t.collectionView,
+    'cv':             t.compositeView,
+    'compositeview':  t.compositeView,
+    'l':          t.layoutView,
+    'layout':     t.layoutView,
+    'layoutview': t.layoutView,
+  };
+
+  gulp.task('template', function(){
+
+    if ( ! gutil.env.baki ){
+      process.exit(1);
+    }
+    const argv = JSON.parse( gutil.env.baki );
+    if ( argv.length < 2 ){
+      console.log('too short options');
+      process.exit(1);
+    }
+
+    const options = __(argv).reject(function(o){
+      return o === 'paging';
     });
+
+    const paging = ! (argv.length === options.length);
+
+    if(templateType[options[0]]) {
+      templateType[options[0]](options[1], paging, true);
+    }
+
   });
 
-  gulp.task('templateItemView', function(){
-    var param = process.argv;
-    if(param.length < 5){ throw 'dame desu yo'}
-    var name = param[4];
-    [
-      {type: tr.itemView, err: true},
-      {type: tr.model,    err: false}
-    ].forEach(function(o){
-      makeTemplate(o.type, name, o.err);
-    });
-  });
-
-  gulp.task('templateCollection', function(){
-    var param = process.argv;
-    if(param.length < 5){ throw 'dame desu yo'}
-    var name = param[4];
-    [
-      {type: tr.collection, err: true},
-      {type: tr.model,      err: false}
-    ].forEach(function(o){
-      makeTemplate(o.type, name, o.err);
-    });
-  });
-
-  gulp.task('templateCollectionView', function(){
-    var param = process.argv;
-    if(param.length < 5){ throw 'dame desu yo'}
-    var name = param[4];
-    [
-      {type: tr.collectionView, err: true},
-      {type: tr.collection,     err: false},
-      {type: tr.itemView,       err: false},
-      {type: tr.model,          err: false}
-    ].forEach(function(o){
-      makeTemplate(o.type, name, o.err);
-    });
-  });
-
-  gulp.task('templateCompositeView', function(){
-    var param = process.argv;
-    if(param.length < 5){ throw 'dame desu yo'}
-    var name = param[4];
-    [
-      {type: tr.compositeView, err: true},
-      {type: tr.collection,    err:false},
-      {type: tr.itemView,      err:false},
-      {type: tr.model,         err:false}
-    ].forEach(function(o){
-      makeTemplate(o.type, name, o.err);
-    });
-  });
-
-  gulp.task('templateLayoutView', function(){
-    var param = process.argv;
-    if(param.length < 5){ throw 'dame desu yo'}
-    var name = param[4];
-    [
-      {type: tr.layoutView, err: true},
-    ].forEach(function(o){
-      makeTemplate(o.type, name, o.err);
-    });
-  });
 
 };
