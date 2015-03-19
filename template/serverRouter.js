@@ -70,7 +70,7 @@ module.exports = function(router){
 
   router.route('/<%= lows %>')
     .get(function (req, res){
-      if(req.accepts('json')){
+      if(req.accepts('html', 'json')==='json'){
         res.set({'Content-Type': 'application/json'});
         res.json({
           "total": <%= lows %>.length,
@@ -95,7 +95,7 @@ module.exports = function(router){
 
   router.route('/<%= lows %>/:id')
     .get(function (req, res){
-      if(req.accepts('json')){
+      if(req.accepts('html', 'json')==='json'){
         res.set({'Content-Type': 'application/json'});
         const model = f.getModelById(req.params.id);
         if( model != undefined ) {

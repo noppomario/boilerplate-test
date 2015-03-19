@@ -27,11 +27,11 @@ class <%= names %> extends Backbone.PageableCollection<<%= name %>> {
 
     super(models, options);
   }
-  
+  /* 
   parse(res:any):any{
     return res.list;
   }
-  
+  */
   /*
   comparator(arg1: <%= name %>, to?: <%= name %>):number {
     if(to instanceof <%= name %>){
