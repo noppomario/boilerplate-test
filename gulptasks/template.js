@@ -36,6 +36,13 @@ module.exports = function(gulp){
       server: serverOptions,
       rule: 'plural', prefix: '',
     },
+    'pageableCollection' : {
+      ts: { ext: '.ts', dir: 'app/typescripts/collections', source: 'template/pageableCollection'},
+      test: __.extend({}, testOptions, {source: 'template/pageableCollectionTest'}),
+      router: routerOptions,
+      server: serverOptions,
+      rule: 'plural', prefix: '',
+    },
     'itemView' : {
       ts: { ext: '.ts', dir: 'app/typescripts/itemviews', source: 'template/itemview'},
       test: __.extend({}, testOptions, {source: 'template/itemviewTest'}),
@@ -123,7 +130,11 @@ module.exports = function(gulp){
       t.model(name, paging, false);
     },
     collection:    function(name, paging, err){
-      makeTemplate(tr.collection, name, err);
+      if (paging) {
+        makeTemplate(tr.pageableCollection, name, err);
+      } else {
+        makeTemplate(tr.collection, name, err);
+      }
       t.model(name, paging, false);
     },
     collectionView: function(name, paging, err){
