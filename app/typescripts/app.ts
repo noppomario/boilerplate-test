@@ -11,6 +11,18 @@ Backbone.$ = $;
 import Marionette = require('backbone.marionette');
 import u = require('underscore');
 
+// for Marionette Inspector
+interface Window{
+  __agent: any;
+}
+
+declare var window:Window;
+
+if (window.__agent) {
+  window.__agent.start(Backbone, Marionette);
+}
+
+
 // import SomeModel = require('./models/Some');
 // import Some      = SomeModel.Some;
 
