@@ -1,8 +1,5 @@
-// Project Information
-const project = require('../package.json');
-const personal = require('../personalSettings.json');
 
-module.exports = function(gulp){
+module.exports = function(gulp, type){
   'use strict';
 
   const clean = require('gulp-clean');
@@ -14,19 +11,29 @@ module.exports = function(gulp){
     'app/dts',
   ];
 
-  const cleanFiles = __.union([
+  const cleanAllFiles = __.union([
     'app/styles',
     'app/scripts',
   ], cleanTestFiles);
 
-  gulp.task("clean", function(){
-    console.log('clean files', cleanFiles);
-    return gulp.src(cleanFiles).pipe(clean());
-  });
+  const types = {
+    all: {
+      message: 'clean all files',
+      files:   cleanAllFiles,
+    },
+    test: {
+      message: 'clean test files',
+      files:   cleanTestFiles,
+    },
+  };
 
-  gulp.task("clean:test", function(){
-    console.log('clean test files', cleanTestFiles);
-    return gulp.src(cleanTestFiles).pipe(clean());
-  });
+
+  if ( types[type] == undefined ) {
+    console.log('no clean target');
+    process.exit(1);
+  }
+
+  console.log( types[type].message, types[type].files );
+  return gulp.src(types[type].files).pipe(clean());
 
 };

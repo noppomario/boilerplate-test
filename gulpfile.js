@@ -56,6 +56,14 @@ gulp.task('typedoc', function(){
   require('./gulptasks/doc')(gulp, path, project);
 });
 
+gulp.task('clean', function(){
+  require('./gulptasks/clean')(gulp, 'all');
+});
+
+gulp.task('clean:test', function(){
+  require('./gulptasks/clean')(gulp, 'test');
+});
+
 gulp.task('hello', function(){
   require('./gulptasks/hello')(personal);
 });
@@ -65,5 +73,4 @@ gulp.task('nyamazing', function(){
 });
 
 const test  = require('./gulptasks/test')(gulp, path);
-const clean = require('./gulptasks/clean')(gulp);
 
