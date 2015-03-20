@@ -1,8 +1,5 @@
-// Project Information
-const project = require('../package.json');
-const personal = require('../personalSettings.json');
 
-module.exports = function(gulp, path){
+module.exports = function(gulp, path, project){
   'use strict';
 
   const typedoc     = require('gulp-typedoc');
@@ -13,14 +10,12 @@ module.exports = function(gulp, path){
     '!'+path.tsTests,
   ];
   
-  gulp.task('typedoc', function() {
-    return gulp.src(docTarget)
-      .pipe(typedoc({
-        module: 'commonjs',
-        out: './docs',
-        name: project.name,
-        target: 'es5'
-      }));
-  });
+  return gulp.src(docTarget)
+    .pipe(typedoc({
+      module: 'commonjs',
+      out: './docs',
+      name: project.name,
+      target: 'es5'
+    }));
 
 };

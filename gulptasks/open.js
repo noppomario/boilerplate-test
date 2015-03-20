@@ -1,8 +1,5 @@
-// Project Information
-const project = require('../package.json');
-const personal = require('../personalSettings.json');
 
-module.exports = function(gulp){
+module.exports = function(gulp, personal){
   'use strict';
 
   const os   = require('os');
@@ -15,26 +12,30 @@ module.exports = function(gulp){
     'Windows_NT': 'firefox',
   };
 
-  gulp.task('open', function(){
 
-    const osType = osTypes.has(personal.os) ? personal.os
-                                            : os.type();
+  const osType =
+      osTypes.has(personal.os) ? personal.os
+			       : os.type();
 
-    const webBrowser = personal.webBrowser === 'auto'   ? defaultWebBrowser[osType]
-                     : personal.webBrowser != undefined ? personal.webBrowser
-                                                        : defaultWebBrowser[osType];
+  const webBrowser =
+      personal.webBrowser === 'auto'   ? defaultWebBrowser[osType]
+    : personal.webBrowser != undefined ? personal.webBrowser
+				       : defaultWebBrowser[osType];
 
-    console.log(osType);
-    console.log(webBrowser);
+  console.log(osType);
+  console.log(webBrowser);
 
-    const port = personal.port === 'auto'   ? 4649
-               : personal.port != undefined ? personal.port
-                                            : 4649;
+  const port =
+      personal.port === 'auto'   ? 4649
+    : personal.port != undefined ? personal.port
+				 : 4649;
 
-    gulp.src('app/index.html')
-        .pipe(open('',{app: webBrowser, url: 'http://localhost:'+port+'/' }));
+  gulp.src('app/index.html')
+    .pipe(open('',{
+      app: webBrowser,
+      url: 'http://localhost:'+port+'/'
+    }));
 
-  });
 };
 
 

@@ -1,13 +1,8 @@
-// Project Information
-const project = require('../package.json');
-const personal = require('../personalSettings.json');
 
-module.exports = function(gulp){
+module.exports = function(){
   'use strict';
 
-  gulp.task('nyamazing', function(){
-    console.log( 'Nyamazing!' );
-  });
+  console.log( 'Nyamazing!' );
 
 };
 

@@ -16,15 +16,39 @@ const path = {
   jsDir:    'app/scripts',
 };
 
-const build = require('./gulptasks/build')(gulp, path);
+
+gulp.task('compile-all', ['lint', 'compile-index']);
+
+gulp.task('compile-index', function(){
+  require('./gulptasks/build')(gulp, path);
+});
+
+gulp.task('lint', function(){
+  require('./gulptasks/lint')(gulp, path);
+});
+
+gulp.task('typedoc', function(){
+  require('./gulptasks/doc')(gulp, path, project);
+});
+
+gulp.task('hello', function(){
+  require('./gulptasks/hello')(personal);
+});
+
+gulp.task('nyamazing', function(){
+  require('./gulptasks/nyamazing')();
+});
+
+gulp.task('open', function(){
+  require('./gulptasks/open')(gulp, personal);
+});
+
+gulp.task('sass', function(){
+  require('./gulptasks/sass')(gulp);
+});
+
 const test  = require('./gulptasks/test')(gulp, path);
-const lint  = require('./gulptasks/lint')(gulp, path);
-const open  = require('./gulptasks/open')(gulp);
 const template = require('./gulptasks/template')(gulp);
 const clean = require('./gulptasks/clean')(gulp);
-const sass = require('./gulptasks/sass')(gulp);
-const doc = require('./gulptasks/doc')(gulp, path);
 const server = require('./gulptasks/server')(gulp);
-const hello = require('./gulptasks/hello')(gulp);
-const nyamazing = require('./gulptasks/nyamazing')(gulp);
 
