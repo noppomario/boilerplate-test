@@ -1,11 +1,7 @@
-// Project Information
-const project = require('../package.json');
-const personal = require('../personalSettings.json');
 
-module.exports = function(gulp){
+module.exports = function(gulp, argv){
   'use strict';
 
-  const gutil  = require('gulp-util');
   const rename = require('gulp-rename');
   const template    = require('gulp-template');
   const conflict    = require('gulp-conflict');
@@ -169,28 +165,20 @@ module.exports = function(gulp){
     'layoutview': t.layoutView,
   };
 
-  gulp.task('template', function(){
 
-    if ( ! gutil.env.baki ){
-      process.exit(1);
-    }
-    const argv = JSON.parse( gutil.env.baki );
-    if ( argv.length < 2 ){
-      console.log('too short options');
-      process.exit(1);
-    }
+  if ( argv.length < 2 ){
+    console.log('too short options');
+    process.exit(1);
+  }
 
-    const options = __(argv).reject(function(o){
-      return o === 'paging';
-    });
-
-    const paging = ! (argv.length === options.length);
-
-    if(templateType[options[0]]) {
-      templateType[options[0]](options[1], paging, true);
-    }
-
+  const options = __(argv).reject(function(o){
+    return o === 'paging';
   });
 
+  const paging = ! (argv.length === options.length);
+
+  if(templateType[options[0]]) {
+    templateType[options[0]](options[1], paging, true);
+  }
 
 };
