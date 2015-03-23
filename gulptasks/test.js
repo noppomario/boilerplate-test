@@ -64,12 +64,26 @@ module.exports = function(gulp, path){
     ]);
   });
 
-  gulp.task("_test:local", function(){
-    const mocha = require("gulp-mocha");
+  gulp.task('_test:local', function(){
+    const istanbul = require('gulp-istanbul');
+    const mocha = require('gulp-mocha');
+    const plumber = require('gulp-plumber');
 
-    return gulp.src('app/powered-tests/tests/**/*.js', {read: false })
-	.pipe(mocha({ reporter: 'spec' }))
-	.on('error', handleError);
+    return gulp.src([
+       'app/powered-tests/**/*.js',
+      '!app/powered-tests/tests/**/*.js',
+        ])
+        .pipe(istanbul())
+        .pipe(istanbul.hookRequire())
+        .on('finish', function(){
+          gulp.src(['app/powered-tests/tests/**/*.js'])
+            .pipe(plumber())
+            .pipe(mocha())
+            .pipe(istanbul.writeReports())
+            .on('finish', function(){
+              console.log('owatta yo');
+            });
+        });
   });
 
   gulp.task("test:local", function(){

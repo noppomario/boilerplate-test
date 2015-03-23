@@ -33,6 +33,7 @@ module.exports = function(gulp, personal, type){
   const urls = {
     app: 'http://localhost:'+port+'/',
     doc: 'docs/index.html',
+    coverage: 'coverage/lcov-report/index.html',
   };
 
   if ( urls[type] == undefined ){

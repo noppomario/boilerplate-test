@@ -56,6 +56,10 @@ gulp.task('opendoc', function(){
   require('./gulptasks/open')(gulp, personal, 'doc');
 });
 
+gulp.task('opencov', function(){
+  require('./gulptasks/open')(gulp, personal, 'coverage');
+});
+
 gulp.task('typedoc', function(){
   require('./gulptasks/doc')(gulp, path, project);
 });
