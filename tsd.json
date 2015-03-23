@@ -6,34 +6,34 @@
   "bundle": "app/typescripts/typings/tsd.d.ts",
   "installed": {
     "mocha/mocha.d.ts": {
-      "commit": "30cfe7dedb3ae990a369cda93995d69b169465bd"
+      "commit": "a834d5f001fb96998a6587343ecccf45fdfbcb6d"
     },
     "power-assert/power-assert.d.ts": {
-      "commit": "30cfe7dedb3ae990a369cda93995d69b169465bd"
+      "commit": "a834d5f001fb96998a6587343ecccf45fdfbcb6d"
     },
     "empower/empower.d.ts": {
-      "commit": "30cfe7dedb3ae990a369cda93995d69b169465bd"
+      "commit": "a834d5f001fb96998a6587343ecccf45fdfbcb6d"
     },
     "power-assert-formatter/power-assert-formatter.d.ts": {
-      "commit": "30cfe7dedb3ae990a369cda93995d69b169465bd"
+      "commit": "a834d5f001fb96998a6587343ecccf45fdfbcb6d"
     },
     "backbone/backbone.d.ts": {
-      "commit": "b0c9a94cadc4af42d2c365b2e425788109e8a0d5"
+      "commit": "a834d5f001fb96998a6587343ecccf45fdfbcb6d"
     },
     "marionette/marionette.d.ts": {
-      "commit": "b0c9a94cadc4af42d2c365b2e425788109e8a0d5"
+      "commit": "a834d5f001fb96998a6587343ecccf45fdfbcb6d"
     },
     "jquery/jquery.d.ts": {
-      "commit": "d728603c7cff3dc40293e4ad800003e9443465b7"
+      "commit": "a834d5f001fb96998a6587343ecccf45fdfbcb6d"
     },
     "underscore/underscore.d.ts": {
-      "commit": "b0c9a94cadc4af42d2c365b2e425788109e8a0d5"
+      "commit": "a834d5f001fb96998a6587343ecccf45fdfbcb6d"
     },
     "browserify/browserify.d.ts": {
-      "commit": "cf7c97b2a68a385c98c75fb6edd81083c97c983c"
+      "commit": "a834d5f001fb96998a6587343ecccf45fdfbcb6d"
     },
     "node/node.d.ts": {
-      "commit": "cf7c97b2a68a385c98c75fb6edd81083c97c983c"
+      "commit": "a834d5f001fb96998a6587343ecccf45fdfbcb6d"
     }
   }
 }
