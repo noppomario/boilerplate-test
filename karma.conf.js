@@ -37,17 +37,15 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-//      "/**/*.browserify": "browserify",
       "app/compiled-tests/**/*.js": "browserify" ,
-      "app/powered-tests/index.js": "coverage"
-//      "app/compiled-tests/**/*.js": "coverage"
+      // "": "coverage",
     },
 
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['mocha', 'coverage'],
+    reporters: ['mocha',/* 'coverage'*/],
 
     // web server port
     port: 9876,
