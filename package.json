@@ -16,7 +16,7 @@
     "t": "baki template",
     "template": "baki template",
     "doc": "gulp typedoc",
-    "showdoc": "chromium-browser docs/index.html",
+    "showdoc": "gulp opendoc",
     "server": "gulp server --env",
     "show": "gulp open",
     "sass": "gulp sass",

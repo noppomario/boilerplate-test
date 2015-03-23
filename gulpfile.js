@@ -49,7 +49,11 @@ gulp.task('server', function(){
 });
 
 gulp.task('open', function(){
-  require('./gulptasks/open')(gulp, personal);
+  require('./gulptasks/open')(gulp, personal, 'app');
+});
+
+gulp.task('opendoc', function(){
+  require('./gulptasks/open')(gulp, personal, 'doc');
 });
 
 gulp.task('typedoc', function(){

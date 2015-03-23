@@ -1,5 +1,5 @@
 
-module.exports = function(gulp, personal){
+module.exports = function(gulp, personal, type){
   'use strict';
 
   const os   = require('os');
@@ -30,10 +30,19 @@ module.exports = function(gulp, personal){
     : personal.port != undefined ? personal.port
 				 : 4649;
 
+  const urls = {
+    app: 'http://localhost:'+port+'/',
+    doc: 'docs/index.html',
+  };
+
+  if ( urls[type] == undefined ){
+    process.exit(1);
+  }
+
   gulp.src('app/index.html')
     .pipe(open('',{
       app: webBrowser,
-      url: 'http://localhost:'+port+'/'
+      url: urls[type],
     }));
 
 };
