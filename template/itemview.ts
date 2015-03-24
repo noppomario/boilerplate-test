@@ -12,8 +12,7 @@ Backbone.$ = $;
 import Marionette = require('backbone.marionette');
 import u = require('underscore');
 
-import <%= name %>Model = require('../models/<%= name %>');
-import <%= name %> = <%= name %>Model.<%= name %>;
+import <%= name %> = require('../models/<%= name %>');
 
 class <%= name %>View extends Marionette.ItemView<<%= name %>> {
   behaviors: any;

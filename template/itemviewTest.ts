@@ -4,8 +4,7 @@
 'use strict';
 <% low = name.replace(/^./,function(e){ return e.toLowerCase(); }) %>
 import assert = require('power-assert');
-import <%= name %>Model = require('../models/<%= name %>');
-import <%= name %> = <%= name %>Model.<%= name %>;
+import <%= name %> = require('../models/<%= name %>');
 
 import <%= name %>View = require('../itemviews/<%= name %>View');
 

@@ -22,13 +22,8 @@ if (window.__agent) {
   window.__agent.start(Backbone, Marionette);
 }
 
-
-// import SomeModel = require('./models/Some');
-// import Some      = SomeModel.Some;
-
-// import SomeView  = require('./itemviews/SomeView');
-
 import AppRouter = require('./routers/AppRouter');
+
 
 export class Application extends Marionette.Application {
   MainRegion: Marionette.Region;

@@ -4,8 +4,7 @@
 
 import Backbone = require('backbone');
 
-import <%= name %>Model = require('../models/<%= name %>');
-import <%= name %> = <%= name %>Model.<%= name %>;
+import <%= name %> = require('../models/<%= name %>');
 
 class <%= names %> extends Backbone.Collection<<%= name %>> {
   model: typeof <%= name %>;

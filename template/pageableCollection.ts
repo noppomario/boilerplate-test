@@ -8,8 +8,7 @@ import Backbone = require('backbone');
 //import PageableCollection = require('backbone.paginator');
 require('../../../node_modules/backbone.paginator/lib/backbone.paginator.js');
 
-import <%= name %>Model = require('../models/<%= name %>');
-import <%= name %> = <%= name %>Model.<%= name %>;
+import <%= name %> = require('../models/<%= name %>');
 
 class <%= names %> extends Backbone.PageableCollection<<%= name %>> {
   model: typeof <%= name %>;

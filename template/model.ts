@@ -40,5 +40,6 @@ module <%= name %>Model {
   }
 }
 
-export = <%= name %>Model;
+import <%= name %> = <%= name %>Model.<%= name %>;
+export = <%= name %>;
 

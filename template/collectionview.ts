@@ -11,8 +11,7 @@ Backbone.$ = $;
 import Marionette = require('backbone.marionette');
 import u = require('underscore');
 
-import <%= name %>Model = require('../models/<%= name %>');
-import <%= name %> = <%= name %>Model.<%= name %>;
+import <%= name %> = require('../models/<%= name %>');
 import <%= names %> = require('../collections/<%= names %>');
 
 import <%= name %>View = require('../itemviews/<%= name %>View');
