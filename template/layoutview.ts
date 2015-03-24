@@ -16,6 +16,8 @@ class <%= name %>LayoutView extends Marionette.LayoutView<Backbone.Model> {
   constructor(options?: any) {
     super(options);
     this.template = require('../../templates/<%= name %>LayoutView.html');
+    this.addRegions({
+    });
   }
 
   //initialize(options?: any) {
