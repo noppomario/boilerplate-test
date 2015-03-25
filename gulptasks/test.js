@@ -56,11 +56,8 @@ module.exports = function(gulp, path){
       '!'+path.dtsFiles,
       '!'+path.tsMain,
       '!app/typescripts/tests/**/*ViewTest.ts',
-      '!app/typescripts/itemviews/**/*.ts',
-      '!app/typescripts/collectionviews/**/*.ts',
-      '!app/typescripts/compositeviews/**/*.ts',
-      '!app/typescripts/layoutviews/**/*.ts',
-      '!app/typescripts/routers/**/*.ts',
+      '!app/typescripts/**/*View.ts',
+      '!app/typescripts/**/*Router.ts',
     ]);
   });
 
