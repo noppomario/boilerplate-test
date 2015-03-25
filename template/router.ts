@@ -3,14 +3,13 @@
 ///<reference path="../typings/backbone/backbone.d.ts" />
 ///<reference path="../typings/marionette/marionette.d.ts" />
 ///<reference path="../typings/browserify/browserify.d.ts" />
+
 'use strict';
 
-<% low = names.replace(/^./,function(e){ return e.toLowerCase(); }) %>
 import $ = require('jquery');
 import Backbone = require('backbone');
 Backbone.$ = $;
 import Marionette = require('backbone.marionette');
-import u = require('underscore');
 
 module <%= names %>Router {
   'use strict';
@@ -33,17 +32,17 @@ module <%= names %>Router {
   }
 
   export function start(options?:any){
-    var <%= low %>Controller = new <%= names %>Controller(options);
-    var <%= low %>Router     = new Marionette.AppRouter({
+    var <%= lows %>Controller = new <%= names %>Controller(options);
+    var <%= lows %>Router     = new Marionette.AppRouter({
       appRoutes: {
-        '<%= low %>': 'hello',
-        '<%= low %>/:id': 'helloId',
+        '<%= lows %>': 'hello',
+        '<%= lows %>/:id': 'helloId',
       },
       routes: {},
-      controller: <%= low %>Controller
+      controller: <%= lows %>Controller
     });
 
-    <%= low %>Controller.router = <%= low %>Router;
+    <%= lows %>Controller.router = <%= lows %>Router;
   }
 }
 

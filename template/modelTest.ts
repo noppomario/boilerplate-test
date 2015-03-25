@@ -2,9 +2,9 @@
 ///<reference path="../typings/power-assert/power-assert.d.ts" />
 
 'use strict';
-<% low = name.replace(/^./,function(e){ return e.toLowerCase(); }) %>
+
 import assert = require('power-assert');
-import <%= name %> = require('../models/<%= name %>');
+import <%= name %> = require('../<%= low %>/<%= name %>');
 
 describe('create <%= name %> model', function() {
   beforeEach(function() {

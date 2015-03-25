@@ -2,7 +2,6 @@
 ///<reference path="../typings/power-assert/power-assert.d.ts" />
 
 'use strict';
-<% low = name.replace(/^./,function(e){ return e.toLowerCase(); }) %>
 
 import assert = require('power-assert');
 

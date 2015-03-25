@@ -5,14 +5,13 @@
 ///<reference path="../typings/browserify/browserify.d.ts" />
 
 'use strict';
-<% low = name.replace(/^./,function(e){ return e.toLowerCase(); }) %>
+
 import $ = require('jquery');
 import Backbone = require('backbone');
 Backbone.$ = $;
 import Marionette = require('backbone.marionette');
-import u = require('underscore');
 
-import <%= name %> = require('../models/<%= name %>');
+import <%= name %> = require('./<%= name %>');
 
 class <%= name %>View extends Marionette.ItemView<<%= name %>> {
   behaviors: any;

@@ -14,45 +14,45 @@ module.exports = function(gulp, argv){
     //  'evaluate': /{{([\s\S]+?)}}/g
   };
   const htmlOptions   = { ext: '.html', dir: 'app/templates', source: 'template/view' };
-  const routerOptions = { ext: '.ts',   dir: 'app/typescripts/routers', source: 'template/router', suffix: 'Router' };
+  const routerOptions = { ext: '.ts',   dir: 'app/typescripts/routers', dirType: 'name', source: 'template/router', suffix: 'Router' };
   const serverOptions = { ext: '.js',   dir: 'server', source: 'template/serverRouter' };
   const testOptions   = { ext: '.ts',   dir: 'app/typescripts/tests', suffix: 'Test' };
   const cssOptions    = { ext: '.scss', dir: 'app/scss', prefix: '_' };
 
   const templateRules = {
     'model' : {
-      ts: { ext: '.ts', dir: 'app/typescripts/models', source: 'template/model'},
+      ts: { ext: '.ts', dir: 'app/typescripts/models', dirType: 'name', source: 'template/model'},
       test: __.extend({}, testOptions, {source: 'template/modelTest'}),
       rule: 'singular', prefix: ''
     },
     'collection' : {
-      ts: { ext: '.ts', dir: 'app/typescripts/collections', source: 'template/collection'},
+      ts: { ext: '.ts', dir: 'app/typescripts/collections', dirType: 'name', source: 'template/collection'},
       test: __.extend({}, testOptions, {source: 'template/collectionTest'}),
       router: routerOptions,
       server: serverOptions,
       rule: 'plural', prefix: '',
     },
     'pageableCollection' : {
-      ts: { ext: '.ts', dir: 'app/typescripts/collections', source: 'template/pageableCollection'},
+      ts: { ext: '.ts', dir: 'app/typescripts/collections', dirType: 'name', source: 'template/pageableCollection'},
       test: __.extend({}, testOptions, {source: 'template/pageableCollectionTest'}),
       router: routerOptions,
       server: serverOptions,
       rule: 'plural', prefix: '',
     },
     'itemView' : {
-      ts: { ext: '.ts', dir: 'app/typescripts/itemviews', source: 'template/itemview'},
+      ts: { ext: '.ts', dir: 'app/typescripts/itemviews', dirType: 'name', source: 'template/itemview'},
       test: __.extend({}, testOptions, {source: 'template/itemviewTest'}),
       html: htmlOptions,
       css: __.extend({}, cssOptions, {source: 'template/itemview'}),
       rule: 'singular', prefix: 'View',
     },
     'collectionView': {
-      ts: { ext: '.ts', dir: 'app/typescripts/collectionviews', source: 'template/collectionview'},
+      ts: { ext: '.ts', dir: 'app/typescripts/collectionviews', dirType: 'name', source: 'template/collectionview'},
       test: __.extend({}, testOptions, {source: 'template/collectionviewTest'}),
       rule: 'plural', prefix: 'View',
     },
     'compositeView' : {
-      ts: { ext: '.ts', dir: 'app/typescripts/compositeviews', source: 'template/compositeview'},
+      ts: { ext: '.ts', dir: 'app/typescripts/compositeviews', dirType: 'name', source: 'template/compositeview'},
       test: __.extend({}, testOptions, {source: 'template/compositeviewTest'}),
       html: htmlOptions,
       css: __.extend({}, cssOptions, {source: 'template/compositeview'}),
@@ -72,7 +72,7 @@ module.exports = function(gulp, argv){
     const suffix = options.suffix || '';
     const name   = prefix + outname + suffix;
     const ext    = options.ext;
-    const dir    = options.dir;
+    const dir    = options.dirType ? 'app/typescripts/'+replaces.low : options.dir;
     const path   = [dir, '/', name, ext ].join('');
     const source = options.source + ext;
     fs.exists(path, function(exists){
@@ -107,7 +107,9 @@ module.exports = function(gulp, argv){
       names   = __name;
       outname = __name + type.prefix;
     }
-    const replaces = {name: name, names: names};
+    const low =   name.replace(/^./,function(e){ return e.toLowerCase(); });
+    const lows = names.replace(/^./,function(e){ return e.toLowerCase(); });
+    const replaces = {name: name, names: names, low: low, lows: lows};
 
     ['ts', 'html', 'css', 'router', 'server', 'test' ].forEach(function(t){
       if(! type[t]) return;

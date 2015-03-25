@@ -3,18 +3,18 @@
 ///<reference path="../typings/backbone/backbone.d.ts" />
 ///<reference path="../typings/marionette/marionette.d.ts" />
 ///<reference path="../typings/browserify/browserify.d.ts" />
+
 'use strict';
-<% low = names.replace(/^./,function(e){ return e.toLowerCase(); }) %>
+
 import $ = require('jquery');
 import Backbone = require('backbone');
 Backbone.$ = $;
 import Marionette = require('backbone.marionette');
-import u = require('underscore');
 
-import <%= name %> = require('../models/<%= name %>');
-import <%= names %> = require('../collections/<%= names %>');
+import <%= name %> = require('./<%= name %>');
+import <%= names %> = require('./<%= names %>');
 
-import <%= name %>View = require('../itemviews/<%= name %>View');
+import <%= name %>View = require('./<%= name %>View');
 
 class <%= names %>View extends Marionette.CollectionView<<%= name %>> {
   behaviors: any;
@@ -22,7 +22,7 @@ class <%= names %>View extends Marionette.CollectionView<<%= name %>> {
   constructor(options?: any) {
     this.childView = <%= name %>View;
     this.tagName = 'div';
-    this.className = '<%= low %>Container';
+    this.className = '<%= lows %>Container';
     this.ui = {
     };
     this.triggers = {

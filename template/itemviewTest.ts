@@ -2,11 +2,11 @@
 ///<reference path="../typings/power-assert/power-assert.d.ts" />
 
 'use strict';
-<% low = name.replace(/^./,function(e){ return e.toLowerCase(); }) %>
-import assert = require('power-assert');
-import <%= name %> = require('../models/<%= name %>');
 
-import <%= name %>View = require('../itemviews/<%= name %>View');
+import assert = require('power-assert');
+import <%= name %> = require('../<%= low %>/<%= name %>');
+
+import <%= name %>View = require('../<%= low %>/<%= name %>View');
 
 describe('create <%= name %> item-view', function() {
   beforeEach(function() {

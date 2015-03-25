@@ -9,7 +9,6 @@ import $ = require('jquery');
 import Backbone = require('backbone');
 Backbone.$ = $;
 import Marionette = require('backbone.marionette');
-import u = require('underscore');
 
 class <%= name %>LayoutView extends Marionette.LayoutView<Backbone.Model> {
   template:(obj?:any)=>string;

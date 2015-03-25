@@ -1,20 +1,20 @@
 ///<reference path="../typings/backbone/backbone.d.ts" />
 ///<reference path="../typings/backbone.paginator/backbone.paginator.d.ts" />
 ///<reference path="../typings/browserify/browserify.d.ts" />
+
 'use strict';
- <% low = names.replace(/^./,function(e){ return e.toLowerCase(); }) %>
 
 import Backbone = require('backbone');
 //import PageableCollection = require('backbone.paginator');
 require('../../../node_modules/backbone.paginator/lib/backbone.paginator.js');
 
-import <%= name %> = require('../models/<%= name %>');
+import <%= name %> = require('./<%= name %>');
 
 class <%= names %> extends Backbone.PageableCollection<<%= name %>> {
   model: typeof <%= name %>;
   constructor ( models?:<%= name %>[], options?:any){
     this.model = <%= name %>;
-    this.url   = '/<%= low %>';
+    this.url   = '/<%= lows %>';
     this.state = {
       firstPage: 0,
       currentPage: 0,

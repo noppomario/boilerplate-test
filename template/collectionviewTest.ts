@@ -2,11 +2,12 @@
 ///<reference path="../typings/power-assert/power-assert.d.ts" />
 
 'use strict';
-<% low = name.replace(/^./,function(e){ return e.toLowerCase(); }) %>
+
 import assert = require('power-assert');
-import <%= name %> = require('../models/<%= name %>');
-import <%= names %> = require('../collections/<%= names %>');
-import <%= names %>View = require('../collectionviews/<%= names %>View');
+
+import <%= name %> = require('../<%= low %>/<%= name %>');
+import <%= names %> = require('../<%= low %>/<%= names %>');
+import <%= names %>View = require('../<%= low %>/<%= names %>View');
 
 describe('create <%= names %> collection-view', function() {
   beforeEach(function() {
@@ -18,14 +19,14 @@ describe('create <%= names %> collection-view', function() {
   });
   describe('create <%= names %> collection-view with empty collection', function() {
     it('undefined collection', function() {
-      var <%= low %>View = new <%= names %>View();
-      assert(<%= low %>View.collection === undefined);
+      var <%= lows %>View = new <%= names %>View();
+      assert(<%= lows %>View.collection === undefined);
     });
   });
   describe('create <%= names %> collection-view with <%= names %> collection', function() {
     it('collection', function() {
-      var <%= low %>View = new <%= names %>View({collection:this.collection});
-      assert(<%= low %>View.collection === this.collection);
+      var <%= lows %>View = new <%= names %>View({collection:this.collection});
+      assert(<%= lows %>View.collection === this.collection);
     });
   });
 });

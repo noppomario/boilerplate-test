@@ -1,16 +1,15 @@
 ///<reference path="../typings/backbone/backbone.d.ts" />
 'use strict';
-<% low = names.replace(/^./,function(e){ return e.toLowerCase(); }) %>
 
 import Backbone = require('backbone');
 
-import <%= name %> = require('../models/<%= name %>');
+import <%= name %> = require('./<%= name %>');
 
 class <%= names %> extends Backbone.Collection<<%= name %>> {
   model: typeof <%= name %>;
   constructor ( models?:<%= name %>[], options?:any){
     this.model = <%= name %>;
-    this.url   = '/<%= low %>';
+    this.url   = '/<%= lows %>';
     super(models, options);
   }
   /*
