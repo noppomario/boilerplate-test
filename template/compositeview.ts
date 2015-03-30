@@ -18,7 +18,7 @@ import <%= name %>View = require('./<%= name %>View');
 
 class <%= names %>View extends Marionette.CompositeView<<%= name %>> {
   behaviors: any;
-  template: (obj?:any)=>string;
+  template: (obj?:any) => string;
 
   constructor(options?: any) {
     this.childView = <%= name %>View;
@@ -39,7 +39,7 @@ class <%= names %>View extends Marionette.CompositeView<<%= name %>> {
     };
 
     options = options || {};
-    
+
     super(options);
   }
 };

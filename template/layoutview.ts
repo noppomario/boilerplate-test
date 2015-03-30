@@ -11,7 +11,7 @@ Backbone.$ = $;
 import Marionette = require('backbone.marionette');
 
 class <%= name %>LayoutView extends Marionette.LayoutView<Backbone.Model> {
-  template:(obj?:any)=>string;
+  template:(obj?:any) => string;
   constructor(options?: any) {
     super(options);
     this.template = require('../../templates/<%= name %>LayoutView.html');
@@ -19,8 +19,8 @@ class <%= name %>LayoutView extends Marionette.LayoutView<Backbone.Model> {
     });
   }
 
-  //initialize(options?: any) {
-  //}
+  // initialize(options?: any) {
+  // }
 }
 
 export = <%= name %>LayoutView;

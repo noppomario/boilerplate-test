@@ -15,7 +15,7 @@ import <%= name %> = require('./<%= name %>');
 
 class <%= name %>View extends Marionette.ItemView<<%= name %>> {
   behaviors: any;
-  template: (obj?:any)=>string;
+  template: (obj?:any) => string;
 
   constructor(options?: any) {
     this.tagName = 'div';
@@ -32,7 +32,7 @@ class <%= name %>View extends Marionette.ItemView<<%= name %>> {
     };
 
     options = options || {};
-    
+
     super(options);
   }
 };

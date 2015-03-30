@@ -13,22 +13,22 @@ module <%= name %>Model {
 
   export class <%= name %> extends Backbone.Model implements <%= name %>Attributes {
     constructor(attributes?:<%= name %>Attributes, options?:any) {
-      //this.idAttribute = 'id';
+      // this.idAttribute = 'id';
       this.defaults = <any>{
         name: 'unknown',
       };
-      super(attributes,options);
+      super(attributes, options);
     }
 
-    initialize() {
+    initialize():void {
       // constructor
     }
 
-    get name(): string {
+    get name():string {
       return this.get('name');
     }
 
-    set name(value: string) {
+    set name(value: string):void {
       this.set('name', value);
     }
 

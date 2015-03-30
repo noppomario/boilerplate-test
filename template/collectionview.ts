@@ -28,7 +28,7 @@ class <%= names %>View extends Marionette.CollectionView<<%= name %>> {
     this.triggers = {
     };
     this.collectionEvents = {
-      //'sync': 'render',
+      // 'sync': 'render',
     };
     this.modelEvents = {
     };
@@ -38,7 +38,7 @@ class <%= names %>View extends Marionette.CollectionView<<%= name %>> {
     };
 
     options = options || {};
-    
+
     super(options);
   }
 };

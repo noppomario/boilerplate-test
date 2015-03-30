@@ -21,17 +21,17 @@ module <%= names %>Router {
       super();
     }
 
-    hello(){
+    hello():void{
       console.log('It\'s <%= names %> Router');
     }
 
-    helloId(_id:string){
+    helloId(_id:string):void{
       var modelId = parseInt(_id, 10);
       console.log('It\'s <%= names %> Router', modelId);
     }
   }
 
-  export function start(options?:any){
+  export function start(options?:any):void{
     var <%= lows %>Controller = new <%= names %>Controller(options);
     var <%= lows %>Router     = new Marionette.AppRouter({
       appRoutes: {

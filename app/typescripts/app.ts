@@ -9,7 +9,6 @@ import $ = require('jquery');
 import Backbone = require('backbone');
 Backbone.$ = $;
 import Marionette = require('backbone.marionette');
-import u = require('underscore');
 
 // for Marionette Inspector
 interface Window{
@@ -18,7 +17,7 @@ interface Window{
 
 declare var window:Window;
 
-if (window.__agent) {
+if (window.__agent){
   window.__agent.start(Backbone, Marionette);
 }
 
@@ -42,12 +41,13 @@ export class Application extends Marionette.Application {
       Backbone.history.start({pushState:true});
     }
   }
-
+  /*
   onStart() {
   }
+  */
 }
 
-(function(){
+(function():void{
   var app: Application = new Application();
   app.start();
 })();

@@ -10,7 +10,6 @@ import $ = require('jquery');
 import Backbone = require('backbone');
 Backbone.$ = $;
 import Marionette = require('backbone.marionette');
-import u = require('underscore');
 
 module AppRouter {
   'use strict';
@@ -22,12 +21,12 @@ module AppRouter {
       super();
     }
 
-    hello(){
+    hello():void{
       console.log('It\'s App Router');
     }
   }
 
-  export function start(){
+  export function start():void{
     var appController = new AppController();
     var appRouter     = new Marionette.AppRouter({
       appRoutes: {
@@ -36,7 +35,6 @@ module AppRouter {
       routes: {},
       controller: appController
     });
-
     appController.router = appRouter;
   }
 }
