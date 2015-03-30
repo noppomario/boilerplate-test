@@ -28,7 +28,7 @@ module <%= name %>Model {
       return this.get('name');
     }
 
-    set name(value: string):void {
+    set name(value: string) {
       this.set('name', value);
     }
 
