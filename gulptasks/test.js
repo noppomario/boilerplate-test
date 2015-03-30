@@ -8,6 +8,7 @@ module.exports = function(gulp, path){
   function handleError(err){
     console.log(err.toString());
     this.emit('end');
+    process.exit(1);
   }
 
   function _compileTest (paths) {
@@ -24,7 +25,8 @@ module.exports = function(gulp, path){
 	    target:'ES5',
 	    noImplicitAny:true,
 	    //noExternalResolve: true
-	  }));
+	  })).on('error', handleError);
+
     return eventStream.merge(
       tsResult.dts.pipe(gulp.dest('app/dts')),
       tsResult.js.pipe( sourcemaps.write() )
