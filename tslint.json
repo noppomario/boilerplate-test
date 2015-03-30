@@ -10,7 +10,7 @@
     "eofline": true,
     "forin": true,
     "indent": [true, 4],
-    "interface-name": true,
+    "interface-name": false,
     "jsdoc-format": true,
     "label-position": true,
     "label-undefined": true,
@@ -49,7 +49,7 @@
         "check-open-brace",
         "check-catch",
         "check-else",
-        "check-whitespace"
+        "// check-whitespace"
     ],
     "quotemark": [true, "single"],
     "radix": true,
@@ -59,7 +59,7 @@
         "call-signature",
         "parameter",
         "property-declaration",
-        "variable-declaration",
+        "// variable-declaration",
         "member-variable-declaration"
     ],
     "typedef-whitespace": [true, {
@@ -79,7 +79,7 @@
         "check-decl",
         "check-operator",
         "check-separator",
-        "check-type"
+        "// check-type"
     ]
   }
 }
