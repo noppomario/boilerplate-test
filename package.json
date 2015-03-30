@@ -6,6 +6,7 @@
   "main": "app/scripts/index.js",
   "scripts": {
     "postinstall": "tsd reinstall -so",
+    "man": "gulp man",
     "b": "gulp compile-all",
     "lint": "gulp lint",
     "test": "gulp test:local",

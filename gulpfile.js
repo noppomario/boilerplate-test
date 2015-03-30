@@ -67,6 +67,10 @@ gulp.task('clean:test', function(){
   require('./gulptasks/clean')(gulp, 'test');
 });
 
+gulp.task('man', function(){
+  require('./gulptasks/man')();
+});
+
 gulp.task('hello', function(){
   require('./gulptasks/hello')(personal);
 });
