@@ -10,6 +10,8 @@ const app        = express();
 const __         = require('underscore');
 const path       = require('path');
 
+const browserSync = require('browser-sync');
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -25,5 +27,14 @@ const port = personal.port === 'auto'   ? 4649
            : personal.port != undefined ? parseInt(personal.port, 10)
                                         : 4649;
 
-app.listen(port);
+app.listen(port, listening);
+
+function listening(){
+  browserSync({
+    proxy: 'localhost:' + port,
+    files: ['app/typescripts/**/*.ts', 'app/index.html']
+  });
+}
+
+
 
