@@ -6,6 +6,9 @@ module.exports = function(gulp, path){
   const browserify = require('browserify');
   const nodeUnderscorify = require('node-underscorify');
 
+  const plumber = require('gulp-plumber');
+  const handleErrors = require('./handleErrors');
+
   return browserify('./'+path.tsMain, {
       debug:true,
     })
@@ -15,6 +18,7 @@ module.exports = function(gulp, path){
      target: 'ES5',
    })
     .bundle()
+    .on('error', handleErrors)
     .pipe(source('index.js'))
     .pipe(gulp.dest(path.jsDir));
 

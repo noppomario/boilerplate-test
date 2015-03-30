@@ -39,6 +39,15 @@ gulp.task('template', function(){
   require('./gulptasks/template')(gulp, argv);
 });
 
+gulp.task('watch', function(){
+  if( ! gutil.env.baki ){
+    process.exit(1);
+  }
+  const argv = JSON.parse( gutil.env.baki );
+
+  require('./gulptasks/watch')(gulp, path, argv);
+});
+
 gulp.task('server', function(){
   require('./gulptasks/server')(project);
 });

@@ -24,6 +24,7 @@
     "show": "gulp open",
     "sass": "gulp sass",
     "scss": "gulp sass",
+    "watch": "baki watch",
     "hello": "gulp hello",
     "nya": "gulp nyamazing"
   },
@@ -43,6 +44,7 @@
     "gulp-espower": "^0.10.1",
     "gulp-istanbul": "^0.6.0",
     "gulp-mocha": "^2.0.0",
+    "gulp-notify": "^2.2.0",
     "gulp-open": "^0.3.2",
     "gulp-plumber": "^1.0.0",
     "gulp-rename": "^1.2.0",
@@ -53,6 +55,7 @@
     "gulp-typedoc": "^1.1.0",
     "gulp-typescript": "^2.5.0",
     "gulp-util": "^3.0.4",
+    "gulp-watch": "^4.2.2",
     "gulp-wrapper-baki": "0.1.0-1",
     "inflection": "^1.6.0",
     "intelli-espower-loader": "^0.6.0",
