@@ -8,10 +8,6 @@ const personal = require('./personalSettings.json');
 const gulp = require('gulp');
 const gutil = require('gulp-util');
 
-const colors = require('colors');
-
-console.log('Yeah!'.red);
-
 const path = {
   tsFiles:  'app/typescripts/**/*.ts',
   dtsFiles: 'app/typescripts/typings/**/*.ts',
@@ -19,7 +15,6 @@ const path = {
   tsMain:   'app/typescripts/app.ts',
   jsDir:    'app/scripts',
 };
-
 
 gulp.task('compile-all', ['lint', 'compile-index']);
 

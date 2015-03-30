@@ -2,7 +2,9 @@
 module.exports = function(personal){
   'use strict';
 
-  const message = personal.message || 'hello';
-  console.log( message );
+  const cv = require('colorful-voice');
+
+  const message = personal.message || 'hello!';
+  cv.red(message).toConsole();
 
 };

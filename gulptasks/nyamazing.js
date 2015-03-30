@@ -2,7 +2,9 @@
 module.exports = function(){
   'use strict';
 
-  console.log( 'Nyamazing!' );
+  const cv = require('colorful-voice');
+
+  cv.red('Nyamazing!').toConsole();
 
 };
 
