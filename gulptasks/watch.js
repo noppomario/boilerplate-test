@@ -7,7 +7,7 @@ module.exports = function(gulp, path, argv){
 
   if( argv.indexOf('ts') !== -1 ){
     console.log('watch: typescript files');
-    watch(path.tsFiles, function(){
+    watch([path.tsFiles,path.templateFiles], function(){
       gulp.start(['compile-all']);
 //      browserSync.reload();
     });

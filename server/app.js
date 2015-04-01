@@ -32,7 +32,7 @@ app.listen(port, listening);
 function listening(){
   browserSync({
     proxy: 'localhost:' + port,
-    files: ['app/typescripts/**/*.ts', 'app/index.html']
+    files: ['app/scripts/**/*.js', 'app/index.html']
   });
 }
 
