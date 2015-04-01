@@ -20,7 +20,7 @@ class <%= name %>View extends Marionette.ItemView<<%= name %>> {
   constructor(options?: any) {
     this.tagName = 'div';
     this.className = '<%= low %>Container';
-    this.template = require('../../templates/<%= name %>View.html');
+    this.template = require('../../templates/<%= name %>View.ejs');
     this.ui = {
     };
     this.triggers = {

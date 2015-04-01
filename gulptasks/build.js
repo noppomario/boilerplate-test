@@ -12,7 +12,7 @@ module.exports = function(gulp, path){
   return browserify('./'+path.tsMain, {
       debug:true,
     })
-   .transform(nodeUnderscorify)
+   .transform([nodeUnderscorify,{extensions: ["ejs"]}])
    .plugin('tsify', {
      noImplicitAny: true,
      target: 'ES5',
