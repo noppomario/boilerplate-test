@@ -41,7 +41,7 @@ gulp.task('lint', function(){
 });
 
 gulp.task('sass', function(){
-  require('./gulptasks/sass')(gulp, path);
+  return require('./gulptasks/sass')(gulp, path);
 });
 
 gulp.task('template', function(){
@@ -50,7 +50,7 @@ gulp.task('template', function(){
   }
   const argv = JSON.parse( gutil.env.baki );
 
-  require('./gulptasks/template')(gulp, argv);
+  return require('./gulptasks/template')(gulp, argv);
 });
 
 gulp.task('watch', function(){
@@ -59,47 +59,47 @@ gulp.task('watch', function(){
   }
   const argv = JSON.parse( gutil.env.baki );
 
-  require('./gulptasks/watch')(gulp, path, argv);
+  return require('./gulptasks/watch')(gulp, path, argv);
 });
 
 gulp.task('server', function(){
-  require('./gulptasks/server')(project);
+  return require('./gulptasks/server')(project);
 });
 
 gulp.task('open', function(){
-  require('./gulptasks/open')(gulp, personal, 'app');
+  return require('./gulptasks/open')(gulp, personal, 'app');
 });
 
 gulp.task('opendoc', function(){
-  require('./gulptasks/open')(gulp, personal, 'doc');
+  return require('./gulptasks/open')(gulp, personal, 'doc');
 });
 
 gulp.task('opencov', function(){
-  require('./gulptasks/open')(gulp, personal, 'coverage');
+  return require('./gulptasks/open')(gulp, personal, 'coverage');
 });
 
 gulp.task('typedoc', function(){
-  require('./gulptasks/doc')(gulp, path, project);
+  return require('./gulptasks/doc')(gulp, path, project);
 });
 
 gulp.task('clean', function(){
-  require('./gulptasks/clean')(gulp, 'all');
+  return require('./gulptasks/clean')(gulp, 'all');
 });
 
 gulp.task('clean:test', function(){
-  require('./gulptasks/clean')(gulp, 'test');
+  return require('./gulptasks/clean')(gulp, 'test');
 });
 
 gulp.task('man', function(){
-  require('./gulptasks/man')();
+  return require('./gulptasks/man')();
 });
 
 gulp.task('hello', function(){
-  require('./gulptasks/hello')(personal);
+  return require('./gulptasks/hello')(personal);
 });
 
 gulp.task('nyamazing', function(){
-  require('./gulptasks/nyamazing')();
+  return require('./gulptasks/nyamazing')();
 });
 
 const test  = require('./gulptasks/test')(gulp, path);

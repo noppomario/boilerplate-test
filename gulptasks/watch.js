@@ -7,7 +7,7 @@ module.exports = function(gulp, path, argv){
   const watcher = {
     ts: function(){
       console.log('watch: typescript files');
-      watch([path.tsFiles,path.templateFiles],
+      watch([path.tsFiles, path.templateFiles],
         { debounce: 2000 },
         function(){
 	  gulp.start(['compile-all']);

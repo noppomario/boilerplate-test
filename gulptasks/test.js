@@ -88,7 +88,7 @@ module.exports = function(gulp, path){
   gulp.task("test:local", function(){
     const runSequence = require('run-sequence');
 
-    runSequence('clean:test', 'compile-test-local', 'power-assert', '_test:local');
+    return runSequence('clean:test', 'compile-test-local', 'power-assert', '_test:local');
   });
 
   gulp.task('_test:remote', function(done){
@@ -103,7 +103,7 @@ module.exports = function(gulp, path){
   gulp.task('test:remote', function(done){
     const runSequence = require('run-sequence');
 
-    runSequence('clean:test', 'compile-test', '_test:remote');
+    return runSequence('clean:test', 'compile-test', '_test:remote');
   });
 
   gulp.task('_test:phantom', function(done){
@@ -119,7 +119,7 @@ module.exports = function(gulp, path){
   gulp.task('test:phantom', function(done){
     const runSequence = require('run-sequence');
 
-    runSequence('clean:test', 'compile-test', '_test:phantom');
+    return runSequence('clean:test', 'compile-test', '_test:phantom');
   });
 
 };
