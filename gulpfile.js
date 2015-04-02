@@ -18,14 +18,26 @@ const path = {
   jsDir:         'app/scripts',
 };
 
-gulp.task('compile-all', ['lint', 'compile-index']);
+gulp.task('compile-all', function(){
+  const runSequence = require('run-sequence');
+  return runSequence(
+    ['lint', 'compile-index'],
+    'webpack'
+  );
+});
+
+//gulp.task('compile-all', ['lint', 'compile-index', 'webpack']);
 
 gulp.task('compile-index', function(){
-  require('./gulptasks/build')(gulp, path);
+  return require('./gulptasks/build')(gulp, path);
+});
+
+gulp.task('webpack', function(){
+  return require('./gulptasks/webpack')(gulp, path);
 });
 
 gulp.task('lint', function(){
-  require('./gulptasks/lint')(gulp, path);
+  return require('./gulptasks/lint')(gulp, path);
 });
 
 gulp.task('sass', function(){

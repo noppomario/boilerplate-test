@@ -4,12 +4,12 @@
 ///<reference path="./typings/marionette/marionette.d.ts" />
 ///<reference path="./typings/browserify/browserify.d.ts" />
 'use strict';
-
+/*
 import $ = require('jquery');
 import Backbone = require('backbone');
 Backbone.$ = $;
 import Marionette = require('backbone.marionette');
-
+*/
 // for Marionette Inspector
 interface Window{
   __agent: any;
