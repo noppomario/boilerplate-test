@@ -9,12 +9,13 @@ const gulp = require('gulp');
 const gutil = require('gulp-util');
 
 const path = {
-  tsFiles:  'app/typescripts/**/*.ts',
+  tsFiles:       'app/typescripts/**/*.ts',
   templateFiles: 'app/templates/**/*.ejs',
-  dtsFiles: 'app/typescripts/typings/**/*.ts',
-  tsTests:  'app/typescripts/tests/**/*.ts',
-  tsMain:   'app/typescripts/app.ts',
-  jsDir:    'app/scripts',
+  dtsFiles:      'app/typescripts/typings/**/*.ts',
+  tsTests:       'app/typescripts/tests/**/*.ts',
+  tsMain:        'app/typescripts/app.ts',
+  sassFiles:     'app/scss/**/*.scss',
+  jsDir:         'app/scripts',
 };
 
 gulp.task('compile-all', ['lint', 'compile-index']);
@@ -28,7 +29,7 @@ gulp.task('lint', function(){
 });
 
 gulp.task('sass', function(){
-  require('./gulptasks/sass')(gulp);
+  require('./gulptasks/sass')(gulp, path);
 });
 
 gulp.task('template', function(){

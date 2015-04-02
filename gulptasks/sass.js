@@ -1,12 +1,12 @@
 
-module.exports = function(gulp){
+module.exports = function(gulp, path){
   'use strict';
 
   const sass = require('gulp-sass');
   const sourcemaps  = require('gulp-sourcemaps');
 
 
-  return gulp.src('app/scss/**/*.scss')
+  return gulp.src(path.sassFiles)
     .pipe(sourcemaps.init())
     .pipe(sass())
     .pipe(sourcemaps.write('./maps'))
