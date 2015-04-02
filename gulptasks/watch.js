@@ -2,19 +2,23 @@
 module.exports = function(gulp, path, argv){
   'use strict';
 
-  const watch = require('gulp-watch');
+  const watch = require('gulp-sane-watch');
 
   const watcher = {
     ts: function(){
       console.log('watch: typescript files');
-      watch([path.tsFiles,path.templateFiles], function(){
-	gulp.start(['compile-all']);
+      watch([path.tsFiles,path.templateFiles],
+        { debounce: 2000 },
+        function(){
+	  gulp.start(['compile-all']);
       });
     },
     sass: function(){
       console.log('watch: sass files');
-      watch([path.sassFiles], function(){
-	gulp.start(['sass']);
+      watch([path.sassFiles],
+        { debounce: 2000 },
+        function(){
+	  gulp.start(['sass']);
       });
     },
   };
