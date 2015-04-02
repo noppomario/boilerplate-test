@@ -3,21 +3,31 @@ module.exports = function(gulp, path, argv){
   'use strict';
 
   const watch = require('gulp-watch');
-//  const browserSync = require('browser-sync');
 
+  const watcher = {
+    ts: function(){
+      console.log('watch: typescript files');
+      watch([path.tsFiles,path.templateFiles], function(){
+	gulp.start(['compile-all']);
+      });
+    },
+    sass: function(){
+      console.log('watch: sass files');
+      watch([path.sassFiles], function(){
+	gulp.start(['sass']);
+      });
+    },
+  };
 
-  if( argv.indexOf('ts') !== -1 ){
-    console.log('watch: typescript files');
-    watch([path.tsFiles,path.templateFiles], function(){
-      gulp.start(['compile-all']);
-//      browserSync.reload();
-    });
-  }
+  const valid = Object.keys(watcher);
 
-  if( argv.indexOf('sass') !== -1 ){
-    console.log('watch: sass files');
-    watch([path.sassFiles], function(){
-      gulp.start(['sass']);
-    });
-  }
+  const arr = argv.length === 0 ? valid
+                                : argv;
+
+  arr.filter(function(a){
+    return valid.indexOf(a) !== -1;
+  }).forEach(function(a){
+    watcher[a]();
+  });
+
 };
