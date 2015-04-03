@@ -1,7 +1,7 @@
 ///<reference path="../typings/backbone/backbone.d.ts" />
 'use strict';
 
-import Backbone = require('backbone');
+//import Backbone = require('backbone');
 
 import <%= name %> = require('./<%= name %>');
 

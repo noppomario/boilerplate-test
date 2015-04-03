@@ -6,10 +6,12 @@
 
 'use strict';
 
+/*
 import $ = require('jquery');
 import Backbone = require('backbone');
 Backbone.$ = $;
 import Marionette = require('backbone.marionette');
+*/
 
 import <%= name %> = require('./<%= name %>');
 

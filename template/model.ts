@@ -2,7 +2,7 @@
 
 'use strict';
 
-import Backbone = require('backbone');
+//import Backbone = require('backbone');
 
 module <%= name %>Model {
   'use strict';

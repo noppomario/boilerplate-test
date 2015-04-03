@@ -5,7 +5,7 @@
   "description": "",
   "main": "app/scripts/index.js",
   "scripts": {
-    "postinstall": "tsd reinstall -so",
+    "postinstall": "tsd reinstall -so; bower install",
     "man": "gulp man",
     "b": "gulp compile-all",
     "lint": "gulp lint",
@@ -80,6 +80,7 @@
     "tsd": "^0.6.0-beta.5",
     "tsify": "^0.8.1",
     "underscore": "^1.8.2",
+    "underscore-template-loader": "^0.2.5",
     "vinyl-source-stream": "^1.1.0",
     "webpack": "^1.7.3"
   },

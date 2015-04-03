@@ -9,6 +9,11 @@ module.exports = {
   resolve: {
     root: [path.join(__dirname, "app/libraries")],
   },
+  module: {
+    loaders: [
+      { test: /\.ejs/, loader: 'underscore-template-loader' }
+    ]
+  },
   externals: {
       'jquery':     '$',
       'backbone':   'Backbone',
