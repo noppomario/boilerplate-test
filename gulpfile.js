@@ -29,6 +29,28 @@ gulp.task('compile-all', function(){
 gulp.task('compile-index', function(){
   return require('./gulptasks/webpack_build')(gulp, path);
 });
+
+gulp.task('test-test-test', function(){
+  const runSequence = require('run-sequence');
+  return runSequence(
+    'test-test',
+    'test-karma'
+  );
+});
+
+gulp.task('test-test', function(){
+  return require('./gulptasks/webpack_test')(gulp, path);
+});
+
+gulp.task('test-karma', function(){
+  const karma = require('karma').server;
+  return karma.start({
+    configFile: __dirname + '/karma.conf.js',
+    browsers: ['PhantomJS'],
+    singleRun: true
+  }, function(){})
+});
+
 /*
 gulp.task('webpack', function(){
   return require('./gulptasks/webpack')(gulp, path);

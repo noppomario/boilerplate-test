@@ -19,7 +19,8 @@ module.exports = {
     //'./app/typescripts/tests/UserTest.ts'
   ,
   output: {
-    path: './app/compiled-tests/',//__dirname,
+//    path: './app/compiled-tests/',//__dirname,
+    path: __dirname,
     filename: "[name].bundle.js",
   },
   resolve: {
