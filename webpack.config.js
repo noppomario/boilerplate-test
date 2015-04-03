@@ -1,17 +1,21 @@
 var path    = require('path');
 var webpack = require('webpack');
 module.exports = {
-  entry: './app/compiled-tests/app.js',
+  devtool: 'sourcemap',
+//  entry: './app/compiled-tests/app.js',
+  entry: './app/typescripts/app.ts',
   output: {
     path: __dirname,
     filename: 'bundle.js',
   },
   resolve: {
+    extensions: ['', '.js', '.ts'],
     root: [path.join(__dirname, "app/libraries")],
   },
   module: {
     loaders: [
-      { test: /\.ejs/, loader: 'underscore-template-loader' }
+      { test: /\.ejs/, loader: 'underscore-template-loader' },
+      { test: /\.ts$/, loader: 'ts-loader?sourceMap&target=ES5&noImplicitAny' },
     ]
   },
   externals: {

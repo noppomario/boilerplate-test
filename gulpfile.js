@@ -21,21 +21,19 @@ const path = {
 gulp.task('compile-all', function(){
   const runSequence = require('run-sequence');
   return runSequence(
-    ['lint', 'compile-index'],
-    'webpack'
+    'lint',
+    'compile-index'
   );
 });
 
-//gulp.task('compile-all', ['lint', 'compile-index', 'webpack']);
-
 gulp.task('compile-index', function(){
-  return require('./gulptasks/build')(gulp, path);
+  return require('./gulptasks/webpack_build')(gulp, path);
 });
-
+/*
 gulp.task('webpack', function(){
   return require('./gulptasks/webpack')(gulp, path);
 });
-
+*/
 gulp.task('lint', function(){
   return require('./gulptasks/lint')(gulp, path);
 });
