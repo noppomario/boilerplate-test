@@ -5,13 +5,6 @@
 ///<reference path="../typings/browserify/browserify.d.ts" />
 'use strict';
 
-/*
-import $ = require('jquery');
-import Backbone = require('backbone');
-Backbone.$ = $;
-import Marionette = require('backbone.marionette');
-*/
-
 class <%= name %>LayoutView extends Marionette.LayoutView<Backbone.Model> {
   template:(obj?:any) => string;
   constructor(options?: any) {

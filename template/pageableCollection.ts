@@ -4,8 +4,6 @@
 
 'use strict';
 
-//import Backbone = require('backbone');
-//import PageableCollection = require('backbone.paginator');
 require('../../../node_modules/backbone.paginator/lib/backbone.paginator.js');
 
 import <%= name %> = require('./<%= name %>');
