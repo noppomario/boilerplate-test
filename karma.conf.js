@@ -10,11 +10,16 @@ module.exports = function(config) {
     browserDisconnectTimeout: 50000,
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ["browserify", "mocha"],
+    frameworks: ["mocha"],
 
 
     // list of files / patterns to load in the browser
     files: [
+      "app/libraries/jquery/dist/jquery.js",
+      "app/libraries/underscore/underscore.js",
+      "app/libraries/backbone/backbone.js",
+      "app/libraries/backbone.marionette/lib/backbone.marionette.js",
+      //"app/powered-tests/**/*.js"
       "app/compiled-tests/**/*.js"
       //"app/powered-tests/index.js"
     ],
@@ -37,9 +42,12 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      "app/compiled-tests/**/*.js": "browserify" ,
+     // "app/typescripts/**/*.ts": ['webpack', 'sourcemap'],
+      //"app/compiled-tests/**/*.js": "browserify" ,
       // "": "coverage",
     },
+
+    webpack: {},
 
 
     // test results reporter to use
@@ -66,11 +74,15 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: [/*'PhantomJS'*/],
+    browsers: ['PhantomJS'],
 
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false
+    singleRun: false,
+    /*plugins: [
+      require('karma-webpack'),
+      require('karma-mocha'),
+    ]*/
   });
 };
