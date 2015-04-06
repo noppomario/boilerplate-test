@@ -8,15 +8,6 @@ module.exports = function(gulp, path){
   return gulp.src('.app/typescripts/app.ts')
     .pipe(webpack(myConfig, null, done))
     .pipe(gulp.dest('./app/compiled-tests/'))
-
-/*
-  const karma = require('karma').server;
-  return karma.start({
-    configFile: __dirname + '/../karma.conf.js',
-    browsers: ['PhantomJS'],
-    singleRun: true
-  }, function(){})
-*/
 };
 
 function done (err, stats) {

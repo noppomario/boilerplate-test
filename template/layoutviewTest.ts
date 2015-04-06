@@ -3,8 +3,6 @@
 
 'use strict';
 
-import assert = require('power-assert');
-
 import <%= name %>LayoutView = require('../layoutviews/<%= name %>LayoutView');
 
 describe('create <%= name %> layout-view', function() {

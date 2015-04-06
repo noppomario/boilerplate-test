@@ -30,32 +30,38 @@ gulp.task('compile-index', function(){
   return require('./gulptasks/webpack_build')(gulp, path);
 });
 
-gulp.task('test-test-test', function(){
+gulp.task('test:phantom', function(){
   const runSequence = require('run-sequence');
-  return runSequence(
-    'test-test',
-    'test-karma'
-  );
+  return runSequence('compile-test', 'karma:phantom');
 });
 
-gulp.task('test-test', function(){
+gulp.task('test:remote', function(){
+  const runSequence = require('run-sequence');
+  return runSequence('compile-test', 'karma:select');
+});
+
+gulp.task('compile-test', function(){
   return require('./gulptasks/webpack_test')(gulp, path);
 });
 
-gulp.task('test-karma', function(){
+gulp.task('karma:phantom', function(){
+  return karma(['PhantomJS']);
+});
+
+gulp.task('karma:select', function(){
+  return karma([]);
+});
+
+var karma = function(browser){
   const karma = require('karma').server;
   return karma.start({
     configFile: __dirname + '/karma.conf.js',
-    browsers: ['PhantomJS'],
+    browsers: browser,
     singleRun: true
-  }, function(){})
-});
+  }, function(){});
+};
 
-/*
-gulp.task('webpack', function(){
-  return require('./gulptasks/webpack')(gulp, path);
-});
-*/
+
 gulp.task('lint', function(){
   return require('./gulptasks/lint')(gulp, path);
 });
@@ -121,6 +127,4 @@ gulp.task('hello', function(){
 gulp.task('nyamazing', function(){
   return require('./gulptasks/nyamazing')();
 });
-
-const test  = require('./gulptasks/test')(gulp, path);
 

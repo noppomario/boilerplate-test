@@ -3,7 +3,6 @@
 
 'use strict';
 
-import assert = require('power-assert');
 import <%= name %> = require('../<%= low %>/<%= name %>');
 import <%= names %> = require('../<%= low %>/<%= names %>');
 import <%= names %>View = require('../<%= low %>/<%= names %>View');

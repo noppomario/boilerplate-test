@@ -5,7 +5,6 @@ var webpack = require('webpack');
 var fs = require('fs');
 module.exports = {
   devtool: 'inline-source-map',
-//  entry: './app/compiled-tests/app.js',
   entry: function(){
     var files = fs.readdirSync('./app/typescripts/tests');
     var obj = {}
@@ -15,11 +14,8 @@ module.exports = {
       obj[key] = value;
     });
     return obj;
-  }()
-    //'./app/typescripts/tests/UserTest.ts'
-  ,
+  }(),
   output: {
-//    path: './app/compiled-tests/',//__dirname,
     path: __dirname,
     filename: "[name].bundle.js",
   },
@@ -36,9 +32,10 @@ module.exports = {
     ]
   },
   externals: {
-      'jquery':     '$',
-      'backbone':   'Backbone',
-      'marionette': 'Marionette',
+      'jquery':       '$',
+      'backbone':     'Backbone',
+      'marionette':   'Marionette',
+      'power-assert': 'assert',
   },
   plugins: [
   ]
