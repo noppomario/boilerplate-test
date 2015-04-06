@@ -13,7 +13,7 @@ module.exports = function(gulp, argv){
     'interpolate': /\/\/<%=([\s\S]+?)%>/g,
     //  'evaluate': /{{([\s\S]+?)}}/g
   };
-  const htmlOptions   = { ext: '.ejs', dir: 'app/templates', source: 'template/view' };
+  const htmlOptions   = { ext: '.ejs', dir: 'app/templates', dirType: 'name', source: 'template/view' };
   const routerOptions = { ext: '.ts',   dir: 'app/typescripts/routers', dirType: 'name', source: 'template/router', suffix: 'Router' };
   const serverOptions = { ext: '.js',   dir: 'server', source: 'template/serverRouter' };
   const testOptions   = { ext: '.ts',   dir: 'app/typescripts/tests', suffix: 'Test' };
@@ -61,7 +61,7 @@ module.exports = function(gulp, argv){
     'layoutView' : {
       ts: { ext: '.ts', dir: 'app/typescripts/layoutviews', source: 'template/layoutview'},
       test: __.extend({}, testOptions, {source: 'template/layoutviewTest'}),
-      html: htmlOptions,
+      html: __.extend({}, htmlOptions, {dir: 'app/typescripts/layoutviews', dirType: ''}),
       rule: 'origin', prefix: 'LayoutView',
     },
   };

@@ -9,7 +9,7 @@ class <%= name %>LayoutView extends Marionette.LayoutView<Backbone.Model> {
   template:(obj?:any) => string;
   constructor(options?: any) {
     super(options);
-    this.template = require('../../templates/<%= name %>LayoutView.ejs');
+    this.template = require('./<%= name %>LayoutView.ejs');
     this.addRegions({
     });
   }

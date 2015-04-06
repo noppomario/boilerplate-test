@@ -20,7 +20,7 @@ class <%= names %>View extends Marionette.CompositeView<<%= name %>> {
     this.childViewContainer = 'div';
     this.tagName = 'div';
     this.className = '<%= lows %>Container';
-    this.template = require('../../templates/<%= names %>View.ejs');
+    this.template = require('./<%= names %>View.ejs');
     this.ui = {
     };
     this.triggers = {
