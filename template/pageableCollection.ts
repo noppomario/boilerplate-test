@@ -4,8 +4,6 @@
 
 'use strict';
 
-require('../../../node_modules/backbone.paginator/lib/backbone.paginator.js');
-
 import <%= name %> = require('./<%= name %>');
 
 class <%= names %> extends Backbone.PageableCollection<<%= name %>> {

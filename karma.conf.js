@@ -18,6 +18,7 @@ module.exports = function(config) {
       "app/libraries/underscore/underscore.js",
       "app/libraries/backbone/backbone.js",
       "app/libraries/backbone.marionette/lib/backbone.marionette.js",
+      "app/libraries/backbone.paginator/lib/backbone.paginator.js",
       "app/libraries/power-assert/build/power-assert.js",
       "app/compiled-tests/**/*.js"
     ],
