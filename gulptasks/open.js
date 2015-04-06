@@ -26,14 +26,14 @@ module.exports = function(gulp, personal, type){
   console.log(webBrowser);
 
   const port =
-      personal.port === 'auto'   ? 4649
-    : personal.port != undefined ? personal.port
-				 : 4649;
+      personal.proxyPort === 'auto'   ? 4650
+    : personal.proxyPort != undefined ? personal.proxyPort
+				      : 4650;
 
   const urls = {
     app: 'http://localhost:'+port+'/',
     doc: 'docs/index.html',
-    coverage: 'coverage/lcov-report/index.html',
+    coverage: 'coverage/',
   };
 
   if ( urls[type] == undefined ){

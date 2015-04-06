@@ -1,5 +1,6 @@
 {
   "webBrowser": "auto",
   "os": "auto",
-  "port": "auto"
+  "port": "auto",
+  "proxyPort": "auto"
 }

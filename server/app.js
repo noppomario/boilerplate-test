@@ -27,12 +27,17 @@ const port = personal.port === 'auto'   ? 4649
            : personal.port != undefined ? parseInt(personal.port, 10)
                                         : 4649;
 
+const proxyPort = personal.proxyPort === 'auto'   ? 4650
+     : personal.proxyPort != undefined ? parseInt(personal.proxyPort, 10)
+                                       : 4650;
+
 app.listen(port, listening);
 
 function listening(){
   browserSync({
     proxy: 'localhost:' + port,
-    files: ['app/scripts/**/*.js', 'app/**/*.html']
+    files: ['app/scripts/**/*.js', 'app/**/*.html'],
+    port: proxyPort,
   });
 }
 
