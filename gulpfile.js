@@ -20,10 +20,7 @@ const path = {
 
 gulp.task('compile-all', function(){
   const runSequence = require('run-sequence');
-  return runSequence(
-    'lint',
-    'compile-index'
-  );
+  return runSequence('lint','compile-index');
 });
 
 gulp.task('compile-index', function(){
