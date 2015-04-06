@@ -1,8 +1,9 @@
+'use strict';
+
 var path    = require('path');
 var webpack = require('webpack');
 module.exports = {
-  devtool: 'sourcemap',
-//  entry: './app/compiled-tests/app.js',
+  devtool: 'inline-source-map',
   entry: './app/typescripts/app.ts',
   output: {
     path: __dirname,
@@ -24,12 +25,5 @@ module.exports = {
       'marionette': 'Marionette',
   },
   plugins: [
-    //new webpack.ResolverPlugin(
-    //  new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin("bower.json", ["main"]),
-    //),
-    //new webpack.ProvidePlugin({
-    //  jQuery: "jquery",
-    //  $:      "jquery",
-    //}),
   ]
 };

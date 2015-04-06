@@ -28,7 +28,6 @@ module.exports = {
     loaders: [
       { test: /\.ejs/, loader: 'underscore-template-loader' },
       { test: /\.ts$/, loader: 'webpack-espower!ts?sourceMap&target=ES5&noImplicitAny' },
-      //{ test: /\.js$/, loader: 'webpack-espower-loader' },
     ]
   },
   externals: {
