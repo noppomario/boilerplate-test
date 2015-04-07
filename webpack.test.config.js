@@ -4,7 +4,7 @@ var path    = require('path');
 var webpack = require('webpack');
 var fs = require('fs');
 module.exports = {
-  devtool: 'inline-source-map',
+  devtool: 'sourcemap',
   entry: function(){
     var files = fs.readdirSync('./app/typescripts/tests');
     var obj = {}
@@ -20,9 +20,8 @@ module.exports = {
     filename: "[name].bundle.js",
   },
   resolve: {
-    modulesDirectories: ['node_modules'],
     extensions: ['', '.js', '.ts'],
-    root: [path.join(__dirname, "app/compiled-tests")],
+    root: [path.join(__dirname, "app/libraries")],
   },
   module: {
     loaders: [
