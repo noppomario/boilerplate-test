@@ -10,7 +10,6 @@ const gutil = require('gulp-util');
 
 const path = {
   tsFiles:       'app/typescripts/**/*.ts',
-  templateFiles: 'app/templates/**/*.ejs',
   dtsFiles:      'app/typescripts/typings/**/*.ts',
   tsTests:       'app/typescripts/tests/**/*.ts',
   tsMain:        'app/typescripts/app.ts',
