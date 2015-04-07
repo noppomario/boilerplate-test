@@ -29,7 +29,10 @@
     "nya": "gulp nyamazing"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
+  "config": {
+    "bower_directory": "app/libraries"
+  },
   "devDependencies": {
     "body-parser": "^1.12.2",
     "bower": "^1.4.1",
