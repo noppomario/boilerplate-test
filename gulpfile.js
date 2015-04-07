@@ -41,19 +41,19 @@ gulp.task('compile-test', function(){
 });
 
 gulp.task('karma:phantom', function(){
-  return karma(['PhantomJS']);
+  return karma(['PhantomJS'], true);
 });
 
 gulp.task('karma:select', function(){
-  return karma([]);
+  return karma([], false);
 });
 
-var karma = function(browser){
+var karma = function(browsers,isSingleRun){
   const karma = require('karma').server;
   return karma.start({
     configFile: __dirname + '/karma.conf.js',
-    browsers: browser,
-    singleRun: true
+    browsers: browsers,
+    singleRun: isSingleRun
   }, function(){});
 };
 
