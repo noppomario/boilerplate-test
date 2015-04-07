@@ -2,7 +2,7 @@
 module.exports = function(gulp, path, project){
   'use strict';
 
-  const typedoc     = require('gulp-typedoc');
+  const typedoc = require('gulp-typedoc');
 
   const docTarget = [
     path.tsFiles,

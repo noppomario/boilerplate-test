@@ -41,22 +41,12 @@ gulp.task('compile-test', function(){
 });
 
 gulp.task('karma:phantom', function(){
-  return karma(['PhantomJS'], true);
+  return require('./gulptasks/karma')(['PhantomJS'], true);
 });
 
 gulp.task('karma:select', function(){
-  return karma([], false);
+  return require('./gulptasks/karma')([], false);
 });
-
-var karma = function(browsers,isSingleRun){
-  const karma = require('karma').server;
-  return karma.start({
-    configFile: __dirname + '/karma.conf.js',
-    browsers: browsers,
-    singleRun: isSingleRun
-  }, function(){});
-};
-
 
 gulp.task('lint', function(){
   return require('./gulptasks/lint')(gulp, path);

@@ -5,22 +5,20 @@ module.exports = function(gulp, personal, type){
   const os   = require('os');
   const open = require('gulp-open');
 
-  const osTypes = new Set(['Linux', 'Darwin', 'Windows_NT']);
-  const defaultWebBrowser = {
-    'Linux'     : 'chromium-browser',
-    'Darwin'    : 'safari',
-    'Windows_NT': 'firefox',
-  };
-
+  const defaultWebBrowser = new Map([
+    ['Linux',      'chromium-browser'],
+    ['Darwin',     'safari'],
+    ['Windows_NT', 'firefox'],
+  ]);
 
   const osType =
-      osTypes.has(personal.os) ? personal.os
-			       : os.type();
+      defaultWebBrowser.has(personal.os) ? personal.os
+                                         : os.type();
 
   const webBrowser =
-      personal.webBrowser === 'auto'   ? defaultWebBrowser[osType]
+      personal.webBrowser === 'auto'   ? defaultWebBrowser.get(osType)
     : personal.webBrowser != undefined ? personal.webBrowser
-				       : defaultWebBrowser[osType];
+                                       : defaultWebBrowser.get(osType);
 
   console.log(osType);
   console.log(webBrowser);

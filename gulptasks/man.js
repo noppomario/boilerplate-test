@@ -4,9 +4,15 @@ module.exports = function(){
 
   const message = `
   postinstall
-    download definisions files after npm install.
+    download definisions files after npm install,
+    and bower install.
 
-    entity: tsd reinstall -so
+    entity: tsd reinstall -so; bower install
+
+  man
+    show this manual.
+
+    entity: gulp man
 
   b
     build typescript files.
@@ -18,10 +24,10 @@ module.exports = function(){
 
     entity: gulp lint
 
-  test
-    unit test.
-
-    entity: gulp test:local
+  //test
+  //  unit test.
+  //
+  //  entity: gulp test:local
 
   test-remote
     test using actual web browser.

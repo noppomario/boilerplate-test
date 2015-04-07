@@ -7,8 +7,6 @@ module.exports = function(gulp, type){
 
   const cleanTestFiles = [
     'app/compiled-tests',
-    'app/powered-tests',
-    'app/dts',
   ];
 
   const cleanAllFiles = __.union([
