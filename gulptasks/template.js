@@ -25,6 +25,11 @@ module.exports = function(gulp, argv){
       test: __.extend({}, testOptions, {source: 'template/modelTest'}),
       rule: 'singular', prefix: ''
     },
+    'relationalModel' : {
+      ts: { ext: '.ts', dir: 'app/typescripts/models', dirType: 'name', source: 'template/relationalModel'},
+      test: __.extend({}, testOptions, {source: 'template/relationalModelTest'}),
+      rule: 'singular', prefix: ''
+    },
     'collection' : {
       ts: { ext: '.ts', dir: 'app/typescripts/collections', dirType: 'name', source: 'template/collection'},
       test: __.extend({}, testOptions, {source: 'template/collectionTest'}),
@@ -120,32 +125,36 @@ module.exports = function(gulp, argv){
   };
 
   const t = {
-    model:         function(name, paging, err){
-      makeTemplate(tr.model,    name, err);
+    model:         function(name, paging, relation, err){
+      if (relation){
+        makeTemplate(tr.relationalModel, name, err);
+      } else {
+        makeTemplate(tr.model, name, err);
+      }
     },
-    itemView:      function(name, paging, err){
+    itemView:      function(name, paging, relation, err){
       makeTemplate(tr.itemView, name, err);
-      t.model(name, paging, false);
+      t.model(name, paging, relation, false);
     },
-    collection:    function(name, paging, err){
+    collection:    function(name, paging, relation, err){
       if (paging) {
         makeTemplate(tr.pageableCollection, name, err);
       } else {
         makeTemplate(tr.collection, name, err);
       }
-      t.model(name, paging, false);
+      t.model(name, paging, relation, false);
     },
-    collectionView: function(name, paging, err){
+    collectionView: function(name, paging, relation, err){
       makeTemplate(tr.collectionView, name, err);
-      t.itemView(name, paging, false);
-      t.collection(name, paging, false);
+      t.itemView(name, paging, relation, false);
+      t.collection(name, paging, relation, false);
     },
-    compositeView: function(name, paging, err){
+    compositeView: function(name, paging, relation, err){
       makeTemplate(tr.compositeView, name, err);
-      t.itemView(name, paging, false);
-      t.collection(name, paging, false);
+      t.itemView(name, paging, relation, false);
+      t.collection(name, paging, relation, false);
     },
-    layoutView:    function(name, paging, err){
+    layoutView:    function(name, paging, relation, err){
       makeTemplate(tr.layoutView, name, err);
     },
   };
@@ -174,13 +183,16 @@ module.exports = function(gulp, argv){
   }
 
   const options = __(argv).reject(function(o){
-    return o === 'paging';
+    return o === 'paging' || o === 'relation';
   });
 
-  const paging = ! (argv.length === options.length);
+  //const paging = ! (argv.length === options.length);
+
+  const paging   = argv.some(function(o){ return o === 'paging';   });
+  const relation = argv.some(function(o){ return o === 'relation'; });
 
   if(templateType[options[0]]) {
-    templateType[options[0]](options[1], paging, true);
+    templateType[options[0]](options[1], paging, relation, true);
   }
 
 };

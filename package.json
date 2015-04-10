@@ -26,7 +26,8 @@
     "scss": "gulp sass",
     "watch": "baki watch",
     "hello": "gulp hello",
-    "nya": "gulp nyamazing"
+    "nya": "gulp nyamazing",
+    "bower": "bower"
   },
   "author": "",
   "license": "MIT",
