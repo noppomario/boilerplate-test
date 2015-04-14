@@ -4,7 +4,8 @@ requires io.js 1.2.0.
 
 - Backbone.Marionette
 - TypeScript
-- Browserify
+- Webpack
+- Bower
 - Karma
 - Phantom.js
 - Power-assert
