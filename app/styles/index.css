@@ -1,0 +1,60 @@
+body, header {
+  margin: 0;
+  padding: 0; }
+
+header h1, .components {
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.5); }
+
+body {
+  background: #fafff0; }
+
+header {
+  width: 100%;
+  overflow: hidden; }
+
+header h1 {
+  margin: 0 -2px 5px -2px;
+  padding: 1rem;
+  background: #e6ffdc;
+  font-family: serif; }
+
+.components {
+  width: 80%;
+  margin: 1.5rem auto auto auto;
+  border: 4px #bee1aa solid;
+  background: #e6ffdc;
+  border-radius: 20px; }
+
+.components h1 {
+  padding-left: 20px; }
+
+.components ul {
+  list-style-type: none;
+  padding: 0; }
+
+.components ul li {
+  text-indent: 1rem;
+  padding: 4px; }
+
+.components ul li:nth-child(odd) {
+  background: #bee1aa; }
+
+footer {
+  position: absolute;
+  bottom: 0;
+  box-sizing: border-box;
+  width: 100%;
+  height: 40px;
+  padding: 4px 4px 4px 0;
+  background: #e6ffdc;
+  text-align: right; }
+
+footer:after {
+  display: inline-block;
+  content: url("../images/nyamazing.png");
+  border-radius: 5px;
+  overflow: hidden;
+  width: 32px;
+  height: 32px; }
+
+/*# sourceMappingURL=maps/index.css.map */
